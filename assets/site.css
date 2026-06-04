@@ -39,7 +39,7 @@ a:hover { text-decoration: underline; }
   backdrop-filter: blur(14px);
 }
 .feature { border-radius: var(--radius-xl); padding: 28px; display: grid; grid-template-columns: 1.3fr .85fr; gap: 20px; }
-.feature-copy h2 { font-size: clamp(30px, 4.4vw, 52px); line-height: 1.16; letter-spacing: -0.035em; margin: 8px 0 14px; max-width: 12ch; }
+.feature-copy h2 { font-size: clamp(24px, 3vw, 40px); line-height: 1.18; letter-spacing: -0.03em; margin: 8px 0 14px; max-width: 14ch; }
 .bullet-list { margin: 20px 0 0; padding-left: 22px; line-height: 1.8; }
 .summary-card { border-radius: var(--radius-lg); padding: 22px; display: flex; flex-direction: column; justify-content: space-between; gap: 18px; background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(250,247,242,0.82)); }
 .summary-card .card-label { color: var(--accent); font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }

@@ -91,7 +91,9 @@ class BuildSiteTests(unittest.TestCase):
             self.assertIn("最新日报变化", homepage)
             self.assertIn("今日更新", homepage)
             self.assertIn("2026 / 06 / 04", homepage)
-            self.assertIn("暖灰", (root / "assets" / "site.css").read_text(encoding="utf-8"))
+            css = (root / "assets" / "site.css").read_text(encoding="utf-8")
+            self.assertIn("暖灰", css)
+            self.assertIn("clamp(24px, 3vw, 40px)", css)
             data = json.loads((root / "site-data" / "reports.json").read_text(encoding="utf-8"))
             self.assertEqual(data[0]["date"], "2026-06-04")
 
