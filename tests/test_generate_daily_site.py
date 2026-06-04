@@ -5,7 +5,7 @@ import textwrap
 import unittest
 from pathlib import Path
 
-from scripts.generate_daily_site import build_site, parse_report
+from scripts.generate_daily_site import build_site, parse_report, summarize_for_card
 
 
 class ParseReportTests(unittest.TestCase):
@@ -96,8 +96,22 @@ class BuildSiteTests(unittest.TestCase):
             css = (root / "assets" / "site.css").read_text(encoding="utf-8")
             self.assertIn("暖灰", css)
             self.assertIn("clamp(24px, 3vw, 40px)", css)
+            self.assertIn("-webkit-line-clamp: 4", css)
             data = json.loads((root / "site-data" / "reports.json").read_text(encoding="utf-8"))
             self.assertEqual(data[0]["date"], "2026-06-04")
+
+
+class SummaryTests(unittest.TestCase):
+    def test_summarize_for_card_shortens_long_text(self) -> None:
+        text = (
+            "新增可报名区域赛事：2026年跨区域面向东盟国家青少年人工智能及机器人邀请赛已发正式通知，"
+            "面向16省中小学生和中职学生开放，报名时间到2026-06-26 18:00，比赛时间2026-07-25。"
+        )
+
+        summary = summarize_for_card(text, 48)
+
+        self.assertLessEqual(len(summary), 49)
+        self.assertTrue(summary.endswith("…"))
 
 
 class CliTests(unittest.TestCase):

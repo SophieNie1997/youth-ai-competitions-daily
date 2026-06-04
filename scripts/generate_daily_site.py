@@ -41,6 +41,15 @@ def split_feature_bullet(text: str) -> tuple[str, str]:
     return text.strip().strip("`"), text.strip()
 
 
+def summarize_for_card(text: str, limit: int) -> str:
+    plain = re.sub(r"\[([^\]]+)\]\((https?://[^)]+)\)", r"\1", text)
+    plain = re.sub(r"`([^`]+)`", r"\1", plain)
+    plain = re.sub(r"\s+", " ", plain).strip()
+    if len(plain) <= limit:
+        return plain
+    return plain[:limit].rstrip("，、；：,. ") + "…"
+
+
 def normalize_heading(text: str) -> str:
     return re.sub(r"^#+\s*", "", text).strip()
 
@@ -201,8 +210,8 @@ def render_trend_card(report: Report, index: int) -> str:
     return f"""
     <article class="trend-card">
       <div class="tag">趋势 {index}</div>
-      <h3>{render_inline(headline)}</h3>
-      <p>{render_inline(description)}</p>
+      <h3>{render_inline(summarize_for_card(headline, 44))}</h3>
+      <p>{render_inline(summarize_for_card(description, 72))}</p>
     </article>
     """
 
@@ -250,13 +259,14 @@ a:hover { text-decoration: underline; }
 }
 .feature { border-radius: var(--radius-xl); padding: 28px; display: grid; grid-template-columns: 1.3fr .85fr; gap: 20px; }
 .feature-copy .feature-tag { color: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 2px; }
-.feature-copy h2 { font-size: clamp(24px, 3vw, 40px); line-height: 1.18; letter-spacing: -0.03em; margin: 8px 0 10px; max-width: 14ch; }
-.feature-copy .feature-lead { color: var(--muted); font-size: 17px; line-height: 1.7; max-width: 56ch; margin: 0 0 18px; }
+.feature-copy h2 { font-size: clamp(24px, 3vw, 40px); line-height: 1.18; letter-spacing: -0.03em; margin: 8px 0 10px; max-width: 12ch; }
+.feature-copy .feature-lead { color: var(--muted); font-size: 16px; line-height: 1.65; max-width: 46ch; margin: 0 0 18px; }
 .bullet-list { margin: 20px 0 0; padding-left: 22px; line-height: 1.8; }
+.bullet-list li { margin-bottom: 8px; }
 .summary-card { border-radius: var(--radius-lg); padding: 22px; display: flex; flex-direction: column; justify-content: space-between; gap: 18px; background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(250,247,242,0.82)); }
 .summary-card .card-label { color: var(--accent); font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
 .summary-card .date-chip { display: inline-flex; align-items: center; width: fit-content; border-radius: 999px; background: rgba(169, 90, 42, 0.1); color: #7a4d2f; border: 1px solid rgba(169, 90, 42, 0.16); padding: 10px 14px; font-size: 13px; font-weight: 700; letter-spacing: 0.08em; }
-.summary-card .claim { font-size: clamp(22px, 2.3vw, 32px); line-height: 1.32; letter-spacing: -0.03em; margin-top: 0; }
+.summary-card .claim { font-size: clamp(18px, 1.8vw, 24px); line-height: 1.45; letter-spacing: -0.02em; margin-top: 0; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
 .summary-card .cta { margin-top: 6px; color: var(--accent); font-weight: 700; }
 .section { margin-top: 42px; }
 .section-head { text-align: center; margin-bottom: 18px; }
@@ -265,8 +275,8 @@ a:hover { text-decoration: underline; }
 .trend-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
 .trend-card { border-radius: 28px; padding: 22px; }
 .trend-card .tag { color: var(--accent); font-size: 12px; font-weight: 700; margin-bottom: 10px; }
-.trend-card h3 { font-size: 25px; line-height: 1.18; letter-spacing: -0.025em; margin: 0 0 10px; }
-.trend-card p { color: var(--muted); font-size: 15px; line-height: 1.68; margin: 0; }
+.trend-card h3 { font-size: clamp(18px, 1.7vw, 24px); line-height: 1.35; letter-spacing: -0.02em; margin: 0 0 10px; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+.trend-card p { color: var(--muted); font-size: 14px; line-height: 1.65; margin: 0; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 .archive-wrap { border-radius: var(--radius-xl); overflow: hidden; }
 .archive-item { display: grid; grid-template-columns: 120px 1fr 110px; gap: 18px; padding: 20px 24px; border-top: 1px solid var(--line); align-items: center; }
 .archive-item:first-child { border-top: 0; }
@@ -326,9 +336,13 @@ def write_homepage(path: Path, reports: list[Report]) -> None:
     latest = reports[0]
     latest_date_label = format_date_label(latest.date)
     feature_title, feature_lead = split_feature_bullet(latest.archive_headline)
+    feature_lead = summarize_for_card(feature_lead, 86)
     archive_items = "\n".join(render_archive_item(report) for report in reports)
     trend_cards = "\n".join(render_trend_card(report, idx) for idx, report in enumerate(reports[:5], start=1))
-    latest_bullets = "".join(f"<li>{render_inline(item)}</li>" for item in latest.summary_bullets[:4])
+    latest_bullets = "".join(
+        f"<li>{render_inline(summarize_for_card(item, 56))}</li>" for item in latest.summary_bullets[:3]
+    )
+    summary_claim = summarize_for_card(latest.archive_summary, 60)
     path.write_text(
         f"""<!doctype html>
 <html lang="zh-CN">
@@ -358,7 +372,7 @@ def write_homepage(path: Path, reports: list[Report]) -> None:
           <div class="card-label">今日更新</div>
           <div class="date-chip">{html.escape(latest_date_label)}</div>
         </div>
-        <div class="claim">{render_inline(latest.archive_summary)}</div>
+        <div class="claim">{render_inline(summary_claim)}</div>
         <a class="cta" href="{html.escape(latest.detail_path)}">查看当日详情页 →</a>
       </article>
     </section>
