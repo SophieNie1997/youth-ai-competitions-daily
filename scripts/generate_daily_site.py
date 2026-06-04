@@ -33,6 +33,14 @@ def format_date_label(date: str) -> str:
     return f"{year} / {month} / {day}"
 
 
+def split_feature_bullet(text: str) -> tuple[str, str]:
+    for separator in ("：", ":"):
+        if separator in text:
+            title, rest = text.split(separator, 1)
+            return title.strip().strip("`"), rest.strip()
+    return text.strip().strip("`"), text.strip()
+
+
 def normalize_heading(text: str) -> str:
     return re.sub(r"^#+\s*", "", text).strip()
 
@@ -241,7 +249,9 @@ a:hover { text-decoration: underline; }
   backdrop-filter: blur(14px);
 }
 .feature { border-radius: var(--radius-xl); padding: 28px; display: grid; grid-template-columns: 1.3fr .85fr; gap: 20px; }
-.feature-copy h2 { font-size: clamp(24px, 3vw, 40px); line-height: 1.18; letter-spacing: -0.03em; margin: 8px 0 14px; max-width: 14ch; }
+.feature-copy .feature-tag { color: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 2px; }
+.feature-copy h2 { font-size: clamp(24px, 3vw, 40px); line-height: 1.18; letter-spacing: -0.03em; margin: 8px 0 10px; max-width: 14ch; }
+.feature-copy .feature-lead { color: var(--muted); font-size: 17px; line-height: 1.7; max-width: 56ch; margin: 0 0 18px; }
 .bullet-list { margin: 20px 0 0; padding-left: 22px; line-height: 1.8; }
 .summary-card { border-radius: var(--radius-lg); padding: 22px; display: flex; flex-direction: column; justify-content: space-between; gap: 18px; background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(250,247,242,0.82)); }
 .summary-card .card-label { color: var(--accent); font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
@@ -315,6 +325,7 @@ def write_json_index(path: Path, reports: list[Report]) -> None:
 def write_homepage(path: Path, reports: list[Report]) -> None:
     latest = reports[0]
     latest_date_label = format_date_label(latest.date)
+    feature_title, feature_lead = split_feature_bullet(latest.archive_headline)
     archive_items = "\n".join(render_archive_item(report) for report in reports)
     trend_cards = "\n".join(render_trend_card(report, idx) for idx, report in enumerate(reports[:5], start=1))
     latest_bullets = "".join(f"<li>{render_inline(item)}</li>" for item in latest.summary_bullets[:4])
@@ -337,7 +348,9 @@ def write_homepage(path: Path, reports: list[Report]) -> None:
     <section class="feature">
       <div class="feature-copy">
         <div class="eyebrow">最新日报</div>
-        <h2>{render_inline(latest.archive_headline)}</h2>
+        <div class="feature-tag">核心变化</div>
+        <h2>{render_inline(feature_title)}</h2>
+        <p class="feature-lead">{render_inline(feature_lead)}</p>
         <ul class="bullet-list">{latest_bullets}</ul>
       </div>
       <article class="summary-card">

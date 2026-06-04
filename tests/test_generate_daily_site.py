@@ -89,6 +89,8 @@ class BuildSiteTests(unittest.TestCase):
             self.assertTrue((root / "site-data" / "reports.json").exists())
             homepage = (root / "index.html").read_text(encoding="utf-8")
             self.assertIn("最新日报变化", homepage)
+            self.assertIn("核心变化", homepage)
+            self.assertIn("feature-lead", homepage)
             self.assertIn("今日更新", homepage)
             self.assertIn("2026 / 06 / 04", homepage)
             css = (root / "assets" / "site.css").read_text(encoding="utf-8")
