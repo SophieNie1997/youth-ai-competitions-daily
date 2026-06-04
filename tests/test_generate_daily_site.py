@@ -5,7 +5,12 @@ import textwrap
 import unittest
 from pathlib import Path
 
-from scripts.generate_daily_site import build_site, parse_report, summarize_for_card
+from scripts.generate_daily_site import (
+    build_site,
+    extract_trend_card_data,
+    parse_report,
+    summarize_for_card,
+)
 
 
 class ParseReportTests(unittest.TestCase):
@@ -93,10 +98,13 @@ class BuildSiteTests(unittest.TestCase):
             self.assertIn("feature-lead", homepage)
             self.assertIn("今日更新", homepage)
             self.assertIn("2026 / 06 / 04", homepage)
+            self.assertIn("trend-meta", homepage)
+            self.assertIn("关键日期", homepage)
             css = (root / "assets" / "site.css").read_text(encoding="utf-8")
             self.assertIn("暖灰", css)
             self.assertIn("clamp(24px, 3vw, 40px)", css)
             self.assertIn("-webkit-line-clamp: 4", css)
+            self.assertIn(".meta-label", css)
             data = json.loads((root / "site-data" / "reports.json").read_text(encoding="utf-8"))
             self.assertEqual(data[0]["date"], "2026-06-04")
 
@@ -112,6 +120,16 @@ class SummaryTests(unittest.TestCase):
 
         self.assertLessEqual(len(summary), 49)
         self.assertTrue(summary.endswith("…"))
+
+    def test_extract_trend_card_data_builds_structured_fields(self) -> None:
+        title, change_type, key_dates = extract_trend_card_data(
+            "IAI²O 官网已正式延期：官网首页今天新增 Official Deadline Extension Notice，把 Registration Deadline "
+            "从 2026-06-07 延到 2026-06-14，Submission Deadline 从 2026-06-20 延到 2026-06-28。"
+        )
+
+        self.assertEqual(title, "IAI²O")
+        self.assertEqual(change_type, "官网已正式延期")
+        self.assertEqual(key_dates, "2026-06-07 / 2026-06-14 / 2026-06-20")
 
 
 class CliTests(unittest.TestCase):

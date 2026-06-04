@@ -50,6 +50,37 @@ def summarize_for_card(text: str, limit: int) -> str:
     return plain[:limit].rstrip("，、；：,. ") + "…"
 
 
+def extract_trend_card_data(text: str) -> tuple[str, str, str]:
+    cleaned = re.sub(r"`([^`]+)`", r"\1", text).strip()
+    label, _, detail = cleaned.partition("：")
+    label = label.strip() or cleaned
+    detail = detail.strip() or cleaned
+
+    title = label
+    change_type = "持续跟进"
+    for marker in ("已", "仍", "进入", "新增", "出现", "到达", "继续"):
+        if marker in label:
+            maybe_title, maybe_type = label.split(marker, 1)
+            if maybe_title.strip():
+                raw_title = maybe_title.strip()
+                prefix = ""
+                if raw_title.endswith("官网首页"):
+                    prefix = "官网首页"
+                elif raw_title.endswith("官网"):
+                    prefix = "官网"
+                elif raw_title.endswith("注册页"):
+                    prefix = "注册页"
+                elif raw_title.endswith("页面"):
+                    prefix = "页面"
+                title = re.sub(r"\s*(官网首页|官网|注册页|页面)$", "", raw_title)
+                change_type = f"{prefix}{marker}{maybe_type}".strip()
+                break
+
+    dates = re.findall(r"\d{4}-\d{2}-\d{2}(?:\s\d{2}:\d{2})?", cleaned)
+    key_dates = " / ".join(dates[:3]) if dates else "待官网进一步确认"
+    return summarize_for_card(title, 22), summarize_for_card(change_type, 24), key_dates
+
+
 def normalize_heading(text: str) -> str:
     return re.sub(r"^#+\s*", "", text).strip()
 
@@ -207,11 +238,16 @@ def render_archive_item(report: Report) -> str:
 def render_trend_card(report: Report, index: int) -> str:
     headline = report.trend_bullets[0] if report.trend_bullets else report.archive_headline
     description = report.trend_bullets[1] if len(report.trend_bullets) > 1 else report.archive_summary
+    title, change_type, key_dates = extract_trend_card_data(headline)
     return f"""
     <article class="trend-card">
       <div class="tag">趋势 {index}</div>
-      <h3>{render_inline(summarize_for_card(headline, 44))}</h3>
-      <p>{render_inline(summarize_for_card(description, 72))}</p>
+      <h3>{render_inline(title)}</h3>
+      <div class="trend-meta">
+        <div class="meta-row"><span class="meta-label">变化</span><span>{render_inline(change_type)}</span></div>
+        <div class="meta-row"><span class="meta-label">关键日期</span><span>{html.escape(key_dates)}</span></div>
+      </div>
+      <p>{render_inline(summarize_for_card(description, 66))}</p>
     </article>
     """
 
@@ -275,8 +311,13 @@ a:hover { text-decoration: underline; }
 .trend-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
 .trend-card { border-radius: 28px; padding: 22px; }
 .trend-card .tag { color: var(--accent); font-size: 12px; font-weight: 700; margin-bottom: 10px; }
-.trend-card h3 { font-size: clamp(18px, 1.7vw, 24px); line-height: 1.35; letter-spacing: -0.02em; margin: 0 0 10px; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
-.trend-card p { color: var(--muted); font-size: 14px; line-height: 1.65; margin: 0; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.trend-card h3 { font-size: clamp(20px, 1.9vw, 28px); line-height: 1.2; letter-spacing: -0.025em; margin: 0 0 14px; }
+.trend-meta { display: grid; gap: 8px; margin-bottom: 14px; }
+.meta-row { display: grid; grid-template-columns: 64px 1fr; gap: 10px; align-items: start; padding: 8px 0; border-top: 1px solid var(--line); }
+.meta-row:first-child { border-top: 0; padding-top: 0; }
+.meta-label { color: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+.meta-row span:last-child { font-size: 15px; line-height: 1.5; }
+.trend-card p { color: var(--muted); font-size: 14px; line-height: 1.65; margin: 0; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .archive-wrap { border-radius: var(--radius-xl); overflow: hidden; }
 .archive-item { display: grid; grid-template-columns: 120px 1fr 110px; gap: 18px; padding: 20px 24px; border-top: 1px solid var(--line); align-items: center; }
 .archive-item:first-child { border-top: 0; }
