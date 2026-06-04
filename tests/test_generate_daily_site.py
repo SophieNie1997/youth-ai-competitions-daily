@@ -105,6 +105,7 @@ class BuildSiteTests(unittest.TestCase):
             self.assertIn("clamp(24px, 3vw, 40px)", css)
             self.assertIn("-webkit-line-clamp: 4", css)
             self.assertIn(".meta-label", css)
+            self.assertIn(".archive-item .headline code", css)
             data = json.loads((root / "site-data" / "reports.json").read_text(encoding="utf-8"))
             self.assertEqual(data[0]["date"], "2026-06-04")
 

@@ -321,9 +321,20 @@ a:hover { text-decoration: underline; }
 .archive-wrap { border-radius: var(--radius-xl); overflow: hidden; }
 .archive-item { display: grid; grid-template-columns: 120px 1fr 110px; gap: 18px; padding: 20px 24px; border-top: 1px solid var(--line); align-items: center; }
 .archive-item:first-child { border-top: 0; }
-.archive-item .headline { font-size: 18px; margin-bottom: 4px; }
+.archive-item .headline { font-size: 18px; margin-bottom: 8px; line-height: 1.55; }
 .archive-item p { margin: 0; color: var(--muted); line-height: 1.6; font-size: 14px; }
 .archive-item .jump { justify-self: end; color: var(--accent); font-weight: 700; }
+.archive-item .headline code {
+  background: rgba(169, 90, 42, 0.14);
+  border: 1px solid rgba(169, 90, 42, 0.16);
+  color: #7f4d2d;
+  box-shadow: inset 0 -1px 0 rgba(169, 90, 42, 0.08);
+}
+.archive-item p code {
+  background: rgba(169, 90, 42, 0.08);
+  border: 1px solid rgba(169, 90, 42, 0.1);
+  color: #87624a;
+}
 .detail-layout { display: grid; grid-template-columns: 280px 1fr; gap: 24px; align-items: start; }
 .toc { border-radius: 24px; padding: 18px; position: sticky; top: 18px; }
 .toc h3 { margin: 0 0 12px; font-size: 18px; }
@@ -339,7 +350,7 @@ table { width: 100%; border-collapse: collapse; min-width: 860px; }
 th, td { text-align: left; vertical-align: top; padding: 14px 16px; border-top: 1px solid var(--line); line-height: 1.65; }
 thead th { border-top: 0; font-size: 14px; color: var(--muted); font-weight: 700; background: rgba(255,255,255,.52); }
 .footer-nav { margin-top: 28px; display: flex; justify-content: space-between; gap: 12px; }
-code { background: rgba(255,255,255,.7); border-radius: 8px; padding: 1px 6px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .92em; }
+code { background: rgba(255,255,255,.7); border-radius: 8px; padding: 1px 6px; border: 1px solid rgba(255,255,255,.4); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .92em; }
 @media (max-width: 900px) {
   .feature, .detail-layout, .trend-grid, .archive-item { grid-template-columns: 1fr; }
   .archive-item .jump { justify-self: start; }
