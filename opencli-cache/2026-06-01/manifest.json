@@ -1,0 +1,181 @@
+{
+  "taskKey": "youth",
+  "taskName": "每日青少年AI赛事资料更新",
+  "generatedAt": "2026-06-01T02:19:35.889Z",
+  "date": "2026-06-01",
+  "outputDir": "/Users/sophienie/Documents/Codex/2026-05-27/youth-ai-competitions-daily/opencli-cache/2026-06-01",
+  "opencliStatus": {
+    "ok": true,
+    "summary": "daemon status exit=0; doctor exit=0"
+  },
+  "records": [
+    {
+      "id": "xiaohongshu-qing-shao-nian-ai-jing-sai-2026-daca9f95",
+      "channel": "xiaohongshu",
+      "query": "青少年 AI 竞赛 2026",
+      "command": [
+        "/Users/sophienie/Library/Application Support/CodexWeixinBridge/node_modules/.bin/opencli",
+        "xiaohongshu",
+        "search",
+        "青少年 AI 竞赛 2026",
+        "--limit",
+        "12",
+        "--window",
+        "background",
+        "-f",
+        "json"
+      ],
+      "ok": true,
+      "exitCode": 0,
+      "timedOut": false,
+      "durationMs": 2162,
+      "resultCount": 12,
+      "stdoutFile": "/Users/sophienie/Documents/Codex/2026-05-27/youth-ai-competitions-daily/opencli-cache/2026-06-01/xiaohongshu-qing-shao-nian-ai-jing-sai-2026-daca9f95.json",
+      "stderrFile": "/Users/sophienie/Documents/Codex/2026-05-27/youth-ai-competitions-daily/opencli-cache/2026-06-01/xiaohongshu-qing-shao-nian-ai-jing-sai-2026-daca9f95.stderr.txt"
+    },
+    {
+      "id": "xiaohongshu-quan-guo-qing-shao-nian-ren-gong-zhi-neng-chuang-xin-tiao-zhan-s-d9824ee7",
+      "channel": "xiaohongshu",
+      "query": "全国青少年人工智能创新挑战赛 2026",
+      "command": [
+        "/Users/sophienie/Library/Application Support/CodexWeixinBridge/node_modules/.bin/opencli",
+        "xiaohongshu",
+        "search",
+        "全国青少年人工智能创新挑战赛 2026",
+        "--limit",
+        "12",
+        "--window",
+        "background",
+        "-f",
+        "json"
+      ],
+      "ok": true,
+      "exitCode": 0,
+      "timedOut": false,
+      "durationMs": 1891,
+      "resultCount": 12,
+      "stdoutFile": "/Users/sophienie/Documents/Codex/2026-05-27/youth-ai-competitions-daily/opencli-cache/2026-06-01/xiaohongshu-quan-guo-qing-shao-nian-ren-gong-zhi-neng-chuang-xin-tiao-zhan-s-d9824ee7.json",
+      "stderrFile": "/Users/sophienie/Documents/Codex/2026-05-27/youth-ai-competitions-daily/opencli-cache/2026-06-01/xiaohongshu-quan-guo-qing-shao-nian-ren-gong-zhi-neng-chuang-xin-tiao-zhan-s-d9824ee7.stderr.txt"
+    },
+    {
+      "id": "xiaohongshu-waicy-2026-qing-shao-nian-ren-gong-zhi-neng-dc98f4ff",
+      "channel": "xiaohongshu",
+      "query": "WAICY 2026 青少年 人工智能",
+      "command": [
+        "/Users/sophienie/Library/Application Support/CodexWeixinBridge/node_modules/.bin/opencli",
+        "xiaohongshu",
+        "search",
+        "WAICY 2026 青少年 人工智能",
+        "--limit",
+        "10",
+        "--window",
+        "background",
+        "-f",
+        "json"
+      ],
+      "ok": true,
+      "exitCode": 0,
+      "timedOut": false,
+      "durationMs": 2143,
+      "resultCount": 10,
+      "stdoutFile": "/Users/sophienie/Documents/Codex/2026-05-27/youth-ai-competitions-daily/opencli-cache/2026-06-01/xiaohongshu-waicy-2026-qing-shao-nian-ren-gong-zhi-neng-dc98f4ff.json",
+      "stderrFile": "/Users/sophienie/Documents/Codex/2026-05-27/youth-ai-competitions-daily/opencli-cache/2026-06-01/xiaohongshu-waicy-2026-qing-shao-nian-ren-gong-zhi-neng-dc98f4ff.stderr.txt"
+    },
+    {
+      "id": "xiaohongshu-aigcnyacc-qing-shao-nian-ren-gong-zhi-neng-f38e754d",
+      "channel": "xiaohongshu",
+      "query": "AIGCNYACC 青少年 人工智能",
+      "command": [
+        "/Users/sophienie/Library/Application Support/CodexWeixinBridge/node_modules/.bin/opencli",
+        "xiaohongshu",
+        "search",
+        "AIGCNYACC 青少年 人工智能",
+        "--limit",
+        "10",
+        "--window",
+        "background",
+        "-f",
+        "json"
+      ],
+      "ok": true,
+      "exitCode": 0,
+      "timedOut": false,
+      "durationMs": 2175,
+      "resultCount": 10,
+      "stdoutFile": "/Users/sophienie/Documents/Codex/2026-05-27/youth-ai-competitions-daily/opencli-cache/2026-06-01/xiaohongshu-aigcnyacc-qing-shao-nian-ren-gong-zhi-neng-f38e754d.json",
+      "stderrFile": "/Users/sophienie/Documents/Codex/2026-05-27/youth-ai-competitions-daily/opencli-cache/2026-06-01/xiaohongshu-aigcnyacc-qing-shao-nian-ren-gong-zhi-neng-f38e754d.stderr.txt"
+    },
+    {
+      "id": "weixin-qing-shao-nian-ai-jing-sai-2026-a1f34feb",
+      "channel": "weixin",
+      "query": "青少年 AI 竞赛 2026",
+      "command": [
+        "/Users/sophienie/Library/Application Support/CodexWeixinBridge/node_modules/.bin/opencli",
+        "weixin",
+        "search",
+        "青少年 AI 竞赛 2026",
+        "--limit",
+        "8",
+        "--window",
+        "background",
+        "-f",
+        "json"
+      ],
+      "ok": true,
+      "exitCode": 0,
+      "timedOut": false,
+      "durationMs": 1909,
+      "resultCount": 8,
+      "stdoutFile": "/Users/sophienie/Documents/Codex/2026-05-27/youth-ai-competitions-daily/opencli-cache/2026-06-01/weixin-qing-shao-nian-ai-jing-sai-2026-a1f34feb.json",
+      "stderrFile": "/Users/sophienie/Documents/Codex/2026-05-27/youth-ai-competitions-daily/opencli-cache/2026-06-01/weixin-qing-shao-nian-ai-jing-sai-2026-a1f34feb.stderr.txt"
+    },
+    {
+      "id": "weixin-quan-guo-qing-shao-nian-ren-gong-zhi-neng-chuang-xin-tiao-zhan-s-72c8d119",
+      "channel": "weixin",
+      "query": "全国青少年人工智能创新挑战赛 2026",
+      "command": [
+        "/Users/sophienie/Library/Application Support/CodexWeixinBridge/node_modules/.bin/opencli",
+        "weixin",
+        "search",
+        "全国青少年人工智能创新挑战赛 2026",
+        "--limit",
+        "8",
+        "--window",
+        "background",
+        "-f",
+        "json"
+      ],
+      "ok": true,
+      "exitCode": 0,
+      "timedOut": false,
+      "durationMs": 2044,
+      "resultCount": 8,
+      "stdoutFile": "/Users/sophienie/Documents/Codex/2026-05-27/youth-ai-competitions-daily/opencli-cache/2026-06-01/weixin-quan-guo-qing-shao-nian-ren-gong-zhi-neng-chuang-xin-tiao-zhan-s-72c8d119.json",
+      "stderrFile": "/Users/sophienie/Documents/Codex/2026-05-27/youth-ai-competitions-daily/opencli-cache/2026-06-01/weixin-quan-guo-qing-shao-nian-ren-gong-zhi-neng-chuang-xin-tiao-zhan-s-72c8d119.stderr.txt"
+    },
+    {
+      "id": "weixin-waicy-2026-qing-shao-nian-ren-gong-zhi-neng-27d1443a",
+      "channel": "weixin",
+      "query": "WAICY 2026 青少年 人工智能",
+      "command": [
+        "/Users/sophienie/Library/Application Support/CodexWeixinBridge/node_modules/.bin/opencli",
+        "weixin",
+        "search",
+        "WAICY 2026 青少年 人工智能",
+        "--limit",
+        "8",
+        "--window",
+        "background",
+        "-f",
+        "json"
+      ],
+      "ok": true,
+      "exitCode": 0,
+      "timedOut": false,
+      "durationMs": 1969,
+      "resultCount": 8,
+      "stdoutFile": "/Users/sophienie/Documents/Codex/2026-05-27/youth-ai-competitions-daily/opencli-cache/2026-06-01/weixin-waicy-2026-qing-shao-nian-ren-gong-zhi-neng-27d1443a.json",
+      "stderrFile": "/Users/sophienie/Documents/Codex/2026-05-27/youth-ai-competitions-daily/opencli-cache/2026-06-01/weixin-waicy-2026-qing-shao-nian-ren-gong-zhi-neng-27d1443a.stderr.txt"
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+
+  Update available: v1.7.22 → v1.8.2
+  Run: npm install -g @jackwener/opencli
+
+  Extension update available: v1.0.15 → v1.0.18
+  Download: https://github.com/jackwener/opencli/releases
+

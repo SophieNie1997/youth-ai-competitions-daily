@@ -1,0 +1,1 @@
+document.documentElement.dataset.site = 'youth-ai-competitions-daily';
