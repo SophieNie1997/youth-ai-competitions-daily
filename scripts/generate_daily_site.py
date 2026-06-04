@@ -28,6 +28,11 @@ class Report:
     source_path: str
 
 
+def format_date_label(date: str) -> str:
+    year, month, day = date.split("-")
+    return f"{year} / {month} / {day}"
+
+
 def normalize_heading(text: str) -> str:
     return re.sub(r"^#+\s*", "", text).strip()
 
@@ -236,12 +241,13 @@ a:hover { text-decoration: underline; }
   backdrop-filter: blur(14px);
 }
 .feature { border-radius: var(--radius-xl); padding: 28px; display: grid; grid-template-columns: 1.3fr .85fr; gap: 20px; }
-.feature-copy h2 { font-size: 34px; line-height: 1.12; letter-spacing: -0.03em; margin: 8px 0 12px; }
+.feature-copy h2 { font-size: clamp(30px, 4.4vw, 52px); line-height: 1.16; letter-spacing: -0.035em; margin: 8px 0 14px; max-width: 12ch; }
 .bullet-list { margin: 20px 0 0; padding-left: 22px; line-height: 1.8; }
-.summary-card { border-radius: var(--radius-lg); padding: 22px; display: flex; flex-direction: column; justify-content: space-between; }
-.summary-card .date { color: var(--muted); font-size: 14px; }
-.summary-card .claim { font-size: 28px; line-height: 1.18; letter-spacing: -0.03em; margin-top: 12px; }
-.summary-card .cta { margin-top: 18px; color: var(--accent); font-weight: 700; }
+.summary-card { border-radius: var(--radius-lg); padding: 22px; display: flex; flex-direction: column; justify-content: space-between; gap: 18px; background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(250,247,242,0.82)); }
+.summary-card .card-label { color: var(--accent); font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+.summary-card .date-chip { display: inline-flex; align-items: center; width: fit-content; border-radius: 999px; background: rgba(169, 90, 42, 0.1); color: #7a4d2f; border: 1px solid rgba(169, 90, 42, 0.16); padding: 10px 14px; font-size: 13px; font-weight: 700; letter-spacing: 0.08em; }
+.summary-card .claim { font-size: clamp(22px, 2.3vw, 32px); line-height: 1.32; letter-spacing: -0.03em; margin-top: 0; }
+.summary-card .cta { margin-top: 6px; color: var(--accent); font-weight: 700; }
 .section { margin-top: 42px; }
 .section-head { text-align: center; margin-bottom: 18px; }
 .section-head h2 { font-size: 38px; line-height: 1.08; letter-spacing: -0.035em; margin: 0; }
@@ -308,6 +314,7 @@ def write_json_index(path: Path, reports: list[Report]) -> None:
 
 def write_homepage(path: Path, reports: list[Report]) -> None:
     latest = reports[0]
+    latest_date_label = format_date_label(latest.date)
     archive_items = "\n".join(render_archive_item(report) for report in reports)
     trend_cards = "\n".join(render_trend_card(report, idx) for idx, report in enumerate(reports[:5], start=1))
     latest_bullets = "".join(f"<li>{render_inline(item)}</li>" for item in latest.summary_bullets[:4])
@@ -334,7 +341,10 @@ def write_homepage(path: Path, reports: list[Report]) -> None:
         <ul class="bullet-list">{latest_bullets}</ul>
       </div>
       <article class="summary-card">
-        <div class="date">{html.escape(latest.date)}</div>
+        <div>
+          <div class="card-label">今日更新</div>
+          <div class="date-chip">{html.escape(latest_date_label)}</div>
+        </div>
         <div class="claim">{render_inline(latest.archive_summary)}</div>
         <a class="cta" href="{html.escape(latest.detail_path)}">查看当日详情页 →</a>
       </article>
