@@ -263,6 +263,10 @@ def write_assets(assets_dir: Path) -> None:
   --line: rgba(33, 28, 22, 0.08);
   --accent: #a95a2a;
   --link: #0a66d1;
+  --marker-bg: #f2dfbf;
+  --marker-bg-soft: rgba(169, 90, 42, 0.1);
+  --marker-border: rgba(139, 82, 35, 0.28);
+  --marker-ink: #58361f;
   --shadow: 0 20px 60px rgba(76, 56, 35, 0.08);
   --radius-xl: 34px;
   --radius-lg: 26px;
@@ -345,12 +349,34 @@ a:hover { text-decoration: underline; }
 .detail-card h2 { font-size: 28px; line-height: 1.15; letter-spacing: -0.025em; margin: 0 0 14px; }
 .detail-card p { line-height: 1.8; margin: 10px 0; }
 .detail-card ul { padding-left: 22px; line-height: 1.8; }
+.detail-card li { padding-left: 4px; }
+.detail-card li::marker { color: var(--accent); }
 .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 20px; background: var(--paper-strong); }
 table { width: 100%; border-collapse: collapse; min-width: 860px; }
 th, td { text-align: left; vertical-align: top; padding: 14px 16px; border-top: 1px solid var(--line); line-height: 1.65; }
 thead th { border-top: 0; font-size: 14px; color: var(--muted); font-weight: 700; background: rgba(255,255,255,.52); }
 .footer-nav { margin-top: 28px; display: flex; justify-content: space-between; gap: 12px; }
-code { background: rgba(255,255,255,.7); border-radius: 8px; padding: 1px 6px; border: 1px solid rgba(255,255,255,.4); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .92em; }
+code {
+  background: linear-gradient(180deg, rgba(246, 226, 193, 0.96), rgba(235, 204, 158, 0.86));
+  border-radius: 7px;
+  padding: .06em .38em .08em;
+  border: 1px solid var(--marker-border);
+  color: var(--marker-ink);
+  box-shadow: inset 0 -1px 0 rgba(112, 65, 29, 0.13), 0 1px 0 rgba(255,255,255,.55);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: .92em;
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+}
+td code,
+th code,
+.archive-item p code,
+.trend-card code {
+  background: var(--marker-bg-soft);
+  border-color: rgba(139, 82, 35, 0.16);
+  color: #6d4229;
+  box-shadow: none;
+}
 @media (max-width: 900px) {
   .feature, .detail-layout, .trend-grid, .archive-item { grid-template-columns: 1fr; }
   .archive-item .jump { justify-self: start; }
