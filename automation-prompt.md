@@ -101,4 +101,6 @@ OPENCLI="/Users/sophienie/Library/Application Support/CodexWeixinBridge/node_mod
 5. `git status --short` 能看到当天应发布的变更，或确认当天无新增内容；
 6. 如有变更，执行 `git add reports/youth-ai-competitions-YYYY-MM-DD.md reports/latest.md index.html daily/YYYY-MM-DD.html site-data/reports.json assets/site.css assets/site.js automation-prompt.md README.md .github/workflows/pages.yml docs/github-pages.md scripts/generate_daily_site.py tests/test_generate_daily_site.py`；
 7. 提交：`git commit -m "chore: publish daily report YYYY-MM-DD"`；
-8. 推送：`git push origin main`。如果 push 因凭证、网络或远端权限失败，不要说网站已更新，只能说“本地日报和网页已生成，GitHub Pages 发布被推送失败阻塞”，并给出失败命令与错误摘要。
+8. 推送：`git push origin main`。
+9. 如果 push 失败且错误明确属于暂时性网络/DNS/连接问题，例如 `Could not resolve host`、`Failed to connect`、`Connection timed out`、`Operation timed out`、`EAI_AGAIN`、`ENOTFOUND`、`ECONNRESET`、`ETIMEDOUT`、`TLS handshake`、`HTTP 5xx`，等待 `90` 秒后重试 `git push origin main`，最多重试 `2` 次。重试必须使用同一个已生成、已提交的版本，不要重新生成日报、不要创建重复提交、不要改动提交内容。
+10. 如果重试后仍失败，或首次失败属于 GitHub 凭证、workflow scope、远端权限、non-fast-forward 等非暂时网络类问题，不要继续重试，不要说网站已更新；只能说“本地日报和网页已生成并提交，GitHub Pages 发布被推送失败阻塞”，并给出失败命令与错误摘要。
