@@ -11,7 +11,49 @@ SECTION_TITLES = [
     "今日变化提醒",
     "主表",
     "小红书新增线索",
+    "资料来源说明",
     "渠道覆盖与失败说明",
+]
+INTERNAL_SECTION_TITLES = {"渠道覆盖与失败说明"}
+PUBLIC_SECTION_TITLES = [title for title in SECTION_TITLES if title not in INTERNAL_SECTION_TITLES]
+INTERNAL_TEXT_PATTERNS = [
+    r"\bopencli\b",
+    r"opencli-cache",
+    r"BROWSER_CONNECT",
+    r"AUTH_REQUIRED",
+    r"\bdaemon\b",
+    r"\bcurl\b",
+    r"\bdoctor\b",
+    r"\blsof\b",
+    r"127\.0\.0\.1",
+    r"\b19825\b",
+    r"latest\.(?:json|md)",
+    r"自动化沙箱",
+    r"登录态",
+    r"预抓取",
+    r"缓存(?:可用|缺失|过期|日期|结果|清单)",
+    r"渠道(?:覆盖|能力|回退|仍未恢复)",
+    r"渠道失败",
+    r"Failed to start",
+    r"Could not create symlink",
+    r"无法连通本机",
+    r"无法获取登录态",
+    r"无.*新增.*小红书",
+    r"无.*可确认.*小红书",
+]
+INTERNAL_TEXT_REGEXES = [re.compile(pattern, re.IGNORECASE) for pattern in INTERNAL_TEXT_PATTERNS]
+PUBLIC_TEXT_REPLACEMENTS = [
+    ("今天读取到的微信缓存中出现", "近期公开文章中出现"),
+    ("微信缓存今天新增", "近期公开文章出现"),
+    ("今天微信缓存又出现", "近期公开文章又出现"),
+    ("从微信缓存与公开网页补核到", "从公开网页补核到"),
+    ("微信缓存与公开网页补核到", "公开网页补核到"),
+    ("今天小红书缓存新增", "近期小红书上出现"),
+    ("小红书缓存新增", "小红书上出现"),
+    ("微信缓存", "公开文章线索"),
+    ("小红书缓存", "小红书线索"),
+    ("发布时间：缓存未返回", "发布时间：待核验"),
+    ("缓存未返回", "待核验"),
 ]
 
 
@@ -42,12 +84,57 @@ def split_feature_bullet(text: str) -> tuple[str, str]:
 
 
 def summarize_for_card(text: str, limit: int) -> str:
+    text = sanitize_public_text(text)
     plain = re.sub(r"\[([^\]]+)\]\((https?://[^)]+)\)", r"\1", text)
     plain = re.sub(r"`([^`]+)`", r"\1", plain)
     plain = re.sub(r"\s+", " ", plain).strip()
     if len(plain) <= limit:
         return plain
     return plain[:limit].rstrip("，、；：,. ") + "…"
+
+
+def is_internal_text(text: str) -> bool:
+    return any(pattern.search(text) for pattern in INTERNAL_TEXT_REGEXES)
+
+
+def sanitize_public_text(text: str) -> str:
+    for old, new in PUBLIC_TEXT_REPLACEMENTS:
+        text = text.replace(old, new)
+    return text
+
+
+def public_bullets(items: list[str]) -> list[str]:
+    return [sanitize_public_text(item) for item in items if not is_internal_text(item)]
+
+
+def public_section_content(title: str, content: str) -> str:
+    if title in INTERNAL_SECTION_TITLES:
+        return ""
+    if title == "主表":
+        return content
+
+    filtered_lines: list[str] = []
+    skipping_continuation = False
+    for raw in content.splitlines():
+        stripped = raw.strip()
+        if not stripped:
+            skipping_continuation = False
+            filtered_lines.append(raw)
+            continue
+
+        is_bullet = bool(re.match(r"^[-*]\s+", stripped))
+        if is_bullet:
+            skipping_continuation = is_internal_text(stripped)
+            if not skipping_continuation:
+                filtered_lines.append(sanitize_public_text(raw))
+            continue
+
+        if skipping_continuation:
+            continue
+        if not is_internal_text(stripped):
+            filtered_lines.append(sanitize_public_text(raw))
+
+    return "\n".join(filtered_lines).strip()
 
 
 def extract_trend_card_data(text: str) -> tuple[str, str, str]:
@@ -118,9 +205,9 @@ def parse_report(path: Path) -> Report:
         raise ValueError(f"Could not find date in title: {title}")
     date = date_match.group(1)
     sections = split_sections(lines[1:])
-    summary_bullets = extract_bullets(sections.get("今日变化提醒", ""))
+    summary_bullets = public_bullets(extract_bullets(sections.get("今日变化提醒", "")))
     if not summary_bullets:
-        raise ValueError(f"Report has no 今日变化提醒 bullets: {path}")
+        summary_bullets = ["查看本日报主表中的赛事信息、报名节点与成果要求。"]
     return Report(
         date=date,
         title=title,
@@ -144,6 +231,7 @@ def slugify(text: str) -> str:
 
 
 def render_inline(text: str) -> str:
+    text = sanitize_public_text(text)
     placeholders: list[str] = []
 
     def store(fragment: str) -> str:
@@ -480,16 +568,15 @@ def write_detail_pages(root: Path, reports: list[Report]) -> None:
     for index, report in enumerate(reports):
         prev_link = reports[index - 1].detail_path if index > 0 else ""
         next_link = reports[index + 1].detail_path if index + 1 < len(reports) else ""
+        public_sections = [
+            (name, content)
+            for name in PUBLIC_SECTION_TITLES
+            if (content := public_section_content(name, report.sections.get(name, "")))
+        ]
         nav_links = "".join(
-            f'<li><a href="#{slugify(name)}">{html.escape(name)}</a></li>'
-            for name in SECTION_TITLES
-            if report.sections.get(name)
+            f'<li><a href="#{slugify(name)}">{html.escape(name)}</a></li>' for name, _ in public_sections
         )
-        body = "".join(
-            render_detail_section(name, report.sections.get(name, ""))
-            for name in SECTION_TITLES
-            if report.sections.get(name)
-        )
+        body = "".join(render_detail_section(name, content) for name, content in public_sections)
         prev_html = f'<a href="../{prev_link}">← 更新的日报</a>' if prev_link else ""
         next_html = f'<a href="../{next_link}">更早的日报 →</a>' if next_link else ""
         html_text = f"""<!doctype html>

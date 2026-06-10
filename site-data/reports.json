@@ -2,12 +2,12 @@
   {
     "date": "2026-06-10",
     "title": "青少年AI赛事资料更新 2026-06-10",
-    "archiveHeadline": "`OpenCLI当日缓存缺失，直播适配器降级`：今天先读 `opencli-cache/latest.md` 和 `latest.json`，确认最新清单仍是 `2026-06-07`；`2026-06-08` 小红书原始文件为 `0` 字节且 stderr 为 `BROWSER_CONNECT / Failed to start opencli daemon`。按提示执行串行预检后，`lsof` 可见 `127.0.0.1:19825` 有本机 `node` 监听，但自动化沙箱 `curl` 返回 `Couldn't connect to server`，因此今天不能写成已获取当天小红书/公众号登录态数据。",
-    "archiveSummary": "`APOAI 2026进入赛前3天`：官网确认比赛日为 `2026-06-13 14:00-20:00 GMT+8`，中国主办，分布式线下参与；官方还写明 `2026-06-27` 发布经复核结果、`2026年7月中旬` 发电子证书、`2026年8月` 于 IOAI 现场颁发金银铜奖。",
+    "archiveHeadline": "`APOAI 2026进入赛前3天`：官网确认比赛日为 `2026-06-13 14:00-20:00 GMT+8`，中国主办，分布式线下参与；官方还写明 `2026-06-27` 发布经复核结果、`2026年7月中旬` 发电子证书、`2026年8月` 于 IOAI 现场颁发金银铜奖。",
+    "archiveSummary": "`AIEC 2026线下总决赛进入赛前3天`：官网仍显示 `2026-06-13` 在 Hilton Toronto/Markham 举行 `AI Showcase`、`8-minute pitch + 5-minute Q&A` 和颁奖；参赛对象为 `Grade 6-12` 团队，今天适合提醒已入围队伍做展示物料和英文答辩准备。",
     "summaryBullets": [
-      "`OpenCLI当日缓存缺失，直播适配器降级`：今天先读 `opencli-cache/latest.md` 和 `latest.json`，确认最新清单仍是 `2026-06-07`；`2026-06-08` 小红书原始文件为 `0` 字节且 stderr 为 `BROWSER_CONNECT / Failed to start opencli daemon`。按提示执行串行预检后，`lsof` 可见 `127.0.0.1:19825` 有本机 `node` 监听，但自动化沙箱 `curl` 返回 `Couldn't connect to server`，因此今天不能写成已获取当天小红书/公众号登录态数据。",
       "`APOAI 2026进入赛前3天`：官网确认比赛日为 `2026-06-13 14:00-20:00 GMT+8`，中国主办，分布式线下参与；官方还写明 `2026-06-27` 发布经复核结果、`2026年7月中旬` 发电子证书、`2026年8月` 于 IOAI 现场颁发金银铜奖。",
-      "`AIEC 2026线下总决赛进入赛前3天`：官网仍显示 `2026-06-13` 在 Hilton Toronto/Markham 举行 `AI Showcase`、`8-minute pitch + 5-minute Q&A` 和颁奖；参赛对象为 `Grade 6-12` 团队，今天适合提醒已入围队伍做展示物料和英文答辩准备。"
+      "`AIEC 2026线下总决赛进入赛前3天`：官网仍显示 `2026-06-13` 在 Hilton Toronto/Markham 举行 `AI Showcase`、`8-minute pitch + 5-minute Q&A` 和颁奖；参赛对象为 `Grade 6-12` 团队，今天适合提醒已入围队伍做展示物料和英文答辩准备。",
+      "`IAI²O报名还有4天`：官网首页继续显示延期公告，National Preliminary Round 报名截止 `2026-06-14`、项目提交截止 `2026-06-28`、结果公布 `2026-07-08`；未看到新的延期或奖项调整。"
     ],
     "detailPath": "daily/2026-06-10.html"
   },
@@ -55,43 +55,43 @@
     "summaryBullets": [
       "`IOAI 2026 晚鸟注册窗口已到可见截止日`：官方注册页写明 `Late Registration` 为 `2026-05-01` 至 `2026-06-01`。今天是 `2026-06-02`，页面已过当前公开的晚鸟注册时间窗；如仍未完成注册与付款，应按晚鸟窗口已结束理解，并尽快联系组委会确认是否还有余位。",
       "`IAI²O 亚洲区进入最后 5 天报名`：官网仍写 `Registration Deadline: June 7, 2026`，`Submission Deadline: June 20, 2026`，相较昨天没有延期，今天开始进入最后一周倒计时。",
-      "`粤港澳青少年人工智能大赛出现“举办通知”线索`：今天读取到的微信缓存中出现标题为 `关于举办2026年粤港澳青少年人工智能大赛的通知` 的近 3 天文章线索；相较昨天主要依赖采购公告，这更像已进入面向学校/单位通知阶段，但公开章程页仍未稳定检出。"
+      "`粤港澳青少年人工智能大赛出现“举办通知”线索`：近期公开文章中出现标题为 `关于举办2026年粤港澳青少年人工智能大赛的通知` 的近 3 天文章线索；相较昨天主要依赖采购公告，这更像已进入面向学校/单位通知阶段，但公开章程页仍未稳定检出。"
     ],
     "detailPath": "daily/2026-06-02.html"
   },
   {
     "date": "2026-06-01",
     "title": "青少年AI赛事资料更新 2026-06-01",
-    "archiveHeadline": "`OpenCLI 当天缓存可用`：`opencli-cache/latest.md` 与 `latest.json` 均为 `2026-06-01`，且小红书/微信共 `7` 条预抓取记录全部成功非空；今天优先采用这些缓存结果，再补公开网页核验。",
-    "archiveSummary": "`IOAI 2026 到达可见最后注册日`：官方注册页仍写 `Registration for IOAI 2026 is open!`，`Late Registration` 时间窗明确为 `2026-05-01` 至 `2026-06-01`；今天是当前页面可见的晚鸟注册截止日。",
+    "archiveHeadline": "`IOAI 2026 到达可见最后注册日`：官方注册页仍写 `Registration for IOAI 2026 is open!`，`Late Registration` 时间窗明确为 `2026-05-01` 至 `2026-06-01`；今天是当前页面可见的晚鸟注册截止日。",
+    "archiveSummary": "`IAI²O 进入最后一周报名`：官网继续写明亚洲区 `Registration Deadline: June 7, 2026`、`Submission Deadline: June 20, 2026`，如果要报亚洲赛区，本周必须完成报名。",
     "summaryBullets": [
-      "`OpenCLI 当天缓存可用`：`opencli-cache/latest.md` 与 `latest.json` 均为 `2026-06-01`，且小红书/微信共 `7` 条预抓取记录全部成功非空；今天优先采用这些缓存结果，再补公开网页核验。",
       "`IOAI 2026 到达可见最后注册日`：官方注册页仍写 `Registration for IOAI 2026 is open!`，`Late Registration` 时间窗明确为 `2026-05-01` 至 `2026-06-01`；今天是当前页面可见的晚鸟注册截止日。",
-      "`IAI²O 进入最后一周报名`：官网继续写明亚洲区 `Registration Deadline: June 7, 2026`、`Submission Deadline: June 20, 2026`，如果要报亚洲赛区，本周必须完成报名。"
+      "`IAI²O 进入最后一周报名`：官网继续写明亚洲区 `Registration Deadline: June 7, 2026`、`Submission Deadline: June 20, 2026`，如果要报亚洲赛区，本周必须完成报名。",
+      "`新增区域赛事线索`：今天从公开网页补核到 `2026年粤港澳青少年人工智能大赛` 的公开采购公告，以及 `中国·上海青少年人工智能创新大赛暨全国邀请赛` 新开 `AI+匠心智造` 职教赛道，可作为区域/职教方向新增跟踪。"
     ],
     "detailPath": "daily/2026-06-01.html"
   },
   {
     "date": "2026-05-31",
     "title": "青少年AI赛事资料更新 2026-05-31",
-    "archiveHeadline": "`OpenCLI 渠道仍未恢复`：`2026-05-31` 串行复测主路径与回退路径 `doctor`，两者都返回 `Daemon: not running`、`Extension: not connected`、`Connectivity: failed (Failed to start opencli daemon)`；但 `lsof -nP -iTCP:19825 -sTCP:LISTEN` 同时看到本机已有 `node` 在监听 `127.0.0.1:19825`，而同一环境下 `curl http://127.0.0.1:19825/status` 仍报无法连接，说明今天更像是自动化运行环境到本机 daemon 的访问异常，而不只是“没启动”。",
-    "archiveSummary": "`IOAI 2026`：截至 `2026-05-31`，官网已明确挂出 [Registration](https://ioai-official.org/registration-2026/) 页面并写明 `Registration for IOAI 2026 is open!`，相较前几天只看到赛程与规则入口，现阶段已进入代表队实际报名窗口。",
+    "archiveHeadline": "`IOAI 2026`：截至 `2026-05-31`，官网已明确挂出 [Registration](https://ioai-official.org/registration-2026/) 页面并写明 `Registration for IOAI 2026 is open!`，相较前几天只看到赛程与规则入口，现阶段已进入代表队实际报名窗口。",
+    "archiveSummary": "`AIGCNYACC`：官网时间轴仍显示 `2026-05-22` 至 `2026-06-20` 为省赛作品提交期，距离当前日期只剩 `20` 天，且仍要求提交手绘草稿与不少于 `3` 张 AIGC 过程截图，临近省赛截止。",
     "summaryBullets": [
-      "`OpenCLI 渠道仍未恢复`：`2026-05-31` 串行复测主路径与回退路径 `doctor`，两者都返回 `Daemon: not running`、`Extension: not connected`、`Connectivity: failed (Failed to start opencli daemon)`；但 `lsof -nP -iTCP:19825 -sTCP:LISTEN` 同时看到本机已有 `node` 在监听 `127.0.0.1:19825`，而同一环境下 `curl http://127.0.0.1:19825/status` 仍报无法连接，说明今天更像是自动化运行环境到本机 daemon 的访问异常，而不只是“没启动”。",
       "`IOAI 2026`：截至 `2026-05-31`，官网已明确挂出 [Registration](https://ioai-official.org/registration-2026/) 页面并写明 `Registration for IOAI 2026 is open!`，相较前几天只看到赛程与规则入口，现阶段已进入代表队实际报名窗口。",
-      "`AIGCNYACC`：官网时间轴仍显示 `2026-05-22` 至 `2026-06-20` 为省赛作品提交期，距离当前日期只剩 `20` 天，且仍要求提交手绘草稿与不少于 `3` 张 AIGC 过程截图，临近省赛截止。"
+      "`AIGCNYACC`：官网时间轴仍显示 `2026-05-22` 至 `2026-06-20` 为省赛作品提交期，距离当前日期只剩 `20` 天，且仍要求提交手绘草稿与不少于 `3` 张 AIGC 过程截图，临近省赛截止。",
+      "`WAICY 2026`：截至 `2026-05-31`，首页仍写 “Be the first to know when WAICY 2026 registration opens”，但独立 [注册页](https://www.waicy.org/waicy-2026-registration/) 仍可填写 `Grade / Country / Track` 等字段，首页与注册页状态继续冲突，报名前需人工确认。"
     ],
     "detailPath": "daily/2026-05-31.html"
   },
   {
     "date": "2026-05-30",
     "title": "青少年AI赛事资料更新 2026-05-30",
-    "archiveHeadline": "`OpenCLI 渠道回退`：`2026-05-30` 实测主路径与回退路径 `doctor` 均返回 `Daemon: not running`、`Extension: not connected`、`Connectivity: failed (Failed to start opencli daemon)`；随后对 `xiaohongshu search` 与 `weixin search` 的实测均以 `BROWSER_CONNECT` 失败，今天无法获取登录态下的小红书和公众号结果。",
-    "archiveSummary": "`全国青少年人工智能创新挑战赛`：今日复核官方赛事页时发现报名时间口径冲突加剧。页面顶部写 `活动时间：2026.01.08 16:52 至 2026.07.15 16:52`，页面底部又写 `2026年07月15日 16:52截止报名`，但赛程总览正文仍写 `报名阶段（2026年2月20日 - 2026年4月15日）`；家长或学校报名前必须人工复核，不能只看单一字段。",
+    "archiveHeadline": "`全国青少年人工智能创新挑战赛`：今日复核官方赛事页时发现报名时间口径冲突加剧。页面顶部写 `活动时间：2026.01.08 16:52 至 2026.07.15 16:52`，页面底部又写 `2026年07月15日 16:52截止报名`，但赛程总览正文仍写 `报名阶段（2026年2月20日 - 2026年4月15日）`；家长或学校报名前必须人工复核，不能只看单一字段。",
+    "archiveSummary": "`WAICY 2026`：截至 `2026-05-30`，官方首页仍写 “Be the first to know when WAICY 2026 registration opens”，但独立注册页已可填写 `Grade / Country / Track` 等字段，首页与注册页状态仍不一致。",
     "summaryBullets": [
-      "`OpenCLI 渠道回退`：`2026-05-30` 实测主路径与回退路径 `doctor` 均返回 `Daemon: not running`、`Extension: not connected`、`Connectivity: failed (Failed to start opencli daemon)`；随后对 `xiaohongshu search` 与 `weixin search` 的实测均以 `BROWSER_CONNECT` 失败，今天无法获取登录态下的小红书和公众号结果。",
       "`全国青少年人工智能创新挑战赛`：今日复核官方赛事页时发现报名时间口径冲突加剧。页面顶部写 `活动时间：2026.01.08 16:52 至 2026.07.15 16:52`，页面底部又写 `2026年07月15日 16:52截止报名`，但赛程总览正文仍写 `报名阶段（2026年2月20日 - 2026年4月15日）`；家长或学校报名前必须人工复核，不能只看单一字段。",
-      "`WAICY 2026`：截至 `2026-05-30`，官方首页仍写 “Be the first to know when WAICY 2026 registration opens”，但独立注册页已可填写 `Grade / Country / Track` 等字段，首页与注册页状态仍不一致。"
+      "`WAICY 2026`：截至 `2026-05-30`，官方首页仍写 “Be the first to know when WAICY 2026 registration opens”，但独立注册页已可填写 `Grade / Country / Track` 等字段，首页与注册页状态仍不一致。",
+      "`AIEC AI Entrepreneurship Contest 2026`：官网时间轴仍明确 `2026-06-13` 线下总决赛与展示，地点为 `Hilton Toronto/Markham`；对计划冲刺国际展示类项目的学生来说，当前已进入决赛前窗口期。"
     ],
     "detailPath": "daily/2026-05-30.html"
   },

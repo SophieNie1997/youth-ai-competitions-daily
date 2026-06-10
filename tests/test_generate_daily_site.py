@@ -109,6 +109,60 @@ class BuildSiteTests(unittest.TestCase):
             data = json.loads((root / "site-data" / "reports.json").read_text(encoding="utf-8"))
             self.assertEqual(data[0]["date"], "2026-06-04")
 
+    def test_build_site_removes_internal_operations_from_public_pages(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            reports_dir = root / "reports"
+            reports_dir.mkdir()
+            (reports_dir / "youth-ai-competitions-2026-06-10.md").write_text(
+                textwrap.dedent(
+                    """\
+                    青少年AI赛事资料更新 2026-06-10
+
+                    今日变化提醒
+                    - `OpenCLI当日缓存缺失`：opencli-cache/latest.json 过期，BROWSER_CONNECT，daemon 无法启动，curl 失败。
+                    - `APOAI 2026进入赛前3天`：官网确认比赛日为 `2026-06-13 14:00-20:00 GMT+8`。
+                    - `AIEC 2026线下总决赛进入赛前3天`：官网仍显示 `2026-06-13` 举行总决赛。
+
+                    主表
+                    | 赛事 | 年级 |
+                    | --- | --- |
+                    | APOAI 2026 | 高中生 |
+
+                    小红书新增线索
+                    - `今天无可确认的当日新增小红书线索`：opencli-cache/latest.json 不是当天，自动化沙箱无法连通本机 daemon。
+                    - `WAICY 2026 参赛指南` / `娃是AI原住民` / `发布时间：2026-06-04` / `5赞`。
+
+                    渠道覆盖与失败说明
+                    - `OpenCLI 直接预检`：doctor 输出 daemon failed，curl 失败。
+                    """
+                ),
+                encoding="utf-8",
+            )
+
+            build_site(root)
+
+            public_text = "\n".join(
+                [
+                    (root / "index.html").read_text(encoding="utf-8"),
+                    (root / "daily" / "2026-06-10.html").read_text(encoding="utf-8"),
+                    (root / "site-data" / "reports.json").read_text(encoding="utf-8"),
+                ]
+            )
+
+            self.assertIn("APOAI 2026进入赛前3天", public_text)
+            self.assertIn("WAICY 2026 参赛指南", public_text)
+            for internal_text in (
+                "OpenCLI",
+                "opencli-cache",
+                "BROWSER_CONNECT",
+                "daemon",
+                "curl",
+                "自动化沙箱",
+                "渠道覆盖与失败说明",
+            ):
+                self.assertNotIn(internal_text, public_text)
+
 
 class SummaryTests(unittest.TestCase):
     def test_summarize_for_card_shortens_long_text(self) -> None:

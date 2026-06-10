@@ -35,9 +35,9 @@ OPENCLI="/Users/sophienie/Library/Application Support/CodexWeixinBridge/node_mod
 }
 ```
 
-如果 doctor 仍显示 daemon、Chrome extension 或 profile 未连接，再检查 `lsof -nP -iTCP:19825 -sTCP:LISTEN` 和 `curl -sS -H 'X-OpenCLI: 1' http://127.0.0.1:19825/status`，区分是 daemon 真没启动、扩展没连上，还是自动化运行环境临时无法访问本机 daemon。只有确认仍不可用时，日报中才按 OpenCLI 渠道失败处理，并只把普通网页搜索作为补充；不要假装小红书/登录态数据已获取。`Could not create symlink ...` 这类 OpenCLI 用户目录 shim 警告通常不是失败根因，除非后续 doctor/search 同时失败。
+如果 doctor 仍显示 daemon、Chrome extension 或 profile 未连接，再检查 `lsof -nP -iTCP:19825 -sTCP:LISTEN` 和 `curl -sS -H 'X-OpenCLI: 1' http://127.0.0.1:19825/status`，区分是 daemon 真没启动、扩展没连上，还是自动化运行环境临时无法访问本机 daemon。只有确认仍不可用时，才降级到公开网页搜索；不要假装小红书/登录态数据已获取。`Could not create symlink ...` 这类 OpenCLI 用户目录 shim 警告通常不是失败根因，除非后续 doctor/search 同时失败。所有 OpenCLI/cache/daemon/curl 等运行诊断只记录在自动化线程最终回复和 memory 中，不写入日报正文、`reports/latest.md`、`site-data/reports.json` 或 HTML 页面。
 
-如果 `lsof` 能看到 `127.0.0.1:19825` 有 `node` 监听，但自动化环境里的 `curl`、`doctor` 或 `search` 仍失败，应优先表述为“当前自动化沙箱无法访问本机 OpenCLI daemon”，不要写成“OpenCLI 安装损坏”“小红书登录态失效”或“Chrome 扩展未安装”。这种情况下不要反复重启 daemon；直接降级检索，并在渠道说明中标注这是自动化运行环境限制，后续可由普通本地线程补抓登录态结果。
+如果 `lsof` 能看到 `127.0.0.1:19825` 有 `node` 监听，但自动化环境里的 `curl`、`doctor` 或 `search` 仍失败，应在自动化线程最终回复和 memory 中表述为“当前自动化沙箱无法访问本机 OpenCLI daemon”，不要写成“OpenCLI 安装损坏”“小红书登录态失效”或“Chrome 扩展未安装”。这种情况下不要反复重启 daemon；直接降级检索。公开日报只写“本期以官网、正式通知、参赛指南和权威媒体公开稿为准；社媒线索仅作跟踪”，不要把运行环境限制、命令、错误码或缓存状态写进网站。
 
 检索命令配方：
 1. 小红书：对关键词运行 `$OPENCLI xiaohongshu search "关键词" --limit 20 --window background -f json`。查小红书必须用 `xiaohongshu`，不要用 `rednote`。对高相关、高互动或新赛程线索，再运行 `$OPENCLI xiaohongshu note "笔记URL" --window background -f json` 抽取正文。
@@ -75,8 +75,13 @@ OPENCLI="/Users/sophienie/Library/Application Support/CodexWeixinBridge/node_mod
 - 标题包含日期：`青少年AI赛事资料更新 YYYY-MM-DD`
 - 先给 `今日变化提醒`，列出 3-5 条最重要变化，尤其是报名截止、赛程变化、新增赛事、奖项变化。
 - 然后给主表：`赛事 / 年级 / 奖项 / 比赛内容或成果 / 主要来源`
-- 再给 `小红书新增线索`，保留笔记标题、作者、发布时间、互动量和可搜索关键词。
-- 最后给 `渠道覆盖与失败说明`，说明 OpenCLI、小红书、公众号、官网检索是否成功。
+- 再给 `小红书新增线索`，只保留对读者有价值的笔记标题、作者、发布时间、互动量和可搜索关键词；如果当天没有可公开使用的新线索，可写“暂无值得公开记录的新线索”，不要解释 OpenCLI、缓存、登录态、daemon、curl、BROWSER_CONNECT 等内部原因。
+- 最后给 `资料来源说明`，用读者能理解的语言说明本期主要依据官网、正式通知、参赛指南 PDF、主办方或权威媒体公开稿；社媒线索仅作跟踪，不作为报名截止、奖项比例或参赛资格的最终依据。
+
+公开网站内容边界：
+- 网站会分享给外部读者，只保留赛事价值信息，不展示自动化运行细节。
+- 不要在 `今日变化提醒`、`主表`、`小红书新增线索`、`资料来源说明` 或任何会进入网站的内容中出现 `OpenCLI`、`opencli-cache`、`latest.json`、`latest.md`、`daemon`、`doctor`、`curl`、`lsof`、`127.0.0.1`、`BROWSER_CONNECT`、`AUTH_REQUIRED`、`登录态`、`自动化沙箱`、`GitHub push`、`Could not resolve host` 等内部诊断词。
+- 如果需要说明检索降级，只在自动化线程最终回复和 `$CODEX_HOME/automations/ai-2/memory.md` 中说明；不要写入报告 Markdown 或网站产物。
 
 归档要求：
 - 将最终日报正文保存到本项目 `reports/youth-ai-competitions-YYYY-MM-DD.md`。
@@ -99,8 +104,9 @@ OPENCLI="/Users/sophienie/Library/Application Support/CodexWeixinBridge/node_mod
 3. `site-data/reports.json` 已更新；
 4. 首页能看到当天摘要、趋势区块和历史归档入口；
 5. `git status --short` 能看到当天应发布的变更，或确认当天无新增内容；
-6. 如有变更，执行 `git add reports/youth-ai-competitions-YYYY-MM-DD.md reports/latest.md index.html daily/YYYY-MM-DD.html site-data/reports.json assets/site.css assets/site.js automation-prompt.md README.md .github/workflows/pages.yml docs/github-pages.md scripts/generate_daily_site.py tests/test_generate_daily_site.py`；
-7. 提交：`git commit -m "chore: publish daily report YYYY-MM-DD"`；
-8. 推送：`git push origin main`。
-9. 如果 push 失败且错误明确属于暂时性网络/DNS/连接问题，例如 `Could not resolve host`、`Failed to connect`、`Connection timed out`、`Operation timed out`、`EAI_AGAIN`、`ENOTFOUND`、`ECONNRESET`、`ETIMEDOUT`、`TLS handshake`、`HTTP 5xx`，等待 `90` 秒后重试 `git push origin main`，最多重试 `2` 次。重试必须使用同一个已生成、已提交的版本，不要重新生成日报、不要创建重复提交、不要改动提交内容。
-10. 如果重试后仍失败，或首次失败属于 GitHub 凭证、workflow scope、远端权限、non-fast-forward 等非暂时网络类问题，不要继续重试，不要说网站已更新；只能说“本地日报和网页已生成并提交，GitHub Pages 发布被推送失败阻塞”，并给出失败命令与错误摘要。
+6. 必须运行以下公开内容检查，确保网站产物不含内部诊断词：`rg -n "OpenCLI|opencli-cache|latest\\.json|latest\\.md|daemon|doctor|curl|lsof|127\\.0\\.0\\.1|BROWSER_CONNECT|AUTH_REQUIRED|登录态|自动化沙箱|GitHub push|Could not resolve host|渠道覆盖与失败说明" index.html daily site-data reports/latest.md reports/youth-ai-competitions-YYYY-MM-DD.md`；如果命中，先清理内容再生成/提交。注意 `automation-prompt.md`、README 和 memory 可以保留内部运行说明，不纳入这个公开内容检查。
+7. 如有变更，执行 `git add reports/youth-ai-competitions-YYYY-MM-DD.md reports/latest.md index.html daily/YYYY-MM-DD.html site-data/reports.json assets/site.css assets/site.js automation-prompt.md README.md .github/workflows/pages.yml docs/github-pages.md scripts/generate_daily_site.py tests/test_generate_daily_site.py`；
+8. 提交：`git commit -m "chore: publish daily report YYYY-MM-DD"`；
+9. 推送：`git push origin main`。
+10. 如果 push 失败且错误明确属于暂时性网络/DNS/连接问题，例如 `Could not resolve host`、`Failed to connect`、`Connection timed out`、`Operation timed out`、`EAI_AGAIN`、`ENOTFOUND`、`ECONNRESET`、`ETIMEDOUT`、`TLS handshake`、`HTTP 5xx`，等待 `90` 秒后重试 `git push origin main`，最多重试 `2` 次。重试必须使用同一个已生成、已提交的版本，不要重新生成日报、不要创建重复提交、不要改动提交内容。
+11. 如果重试后仍失败，或首次失败属于 GitHub 凭证、workflow scope、远端权限、non-fast-forward 等非暂时网络类问题，不要继续重试，不要说网站已更新；只能说“本地日报和网页已生成并提交，GitHub Pages 发布被推送失败阻塞”，并给出失败命令与错误摘要。
