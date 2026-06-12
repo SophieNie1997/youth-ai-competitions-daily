@@ -100,14 +100,20 @@ class BuildSiteTests(unittest.TestCase):
             self.assertIn("2026 / 06 / 04", homepage)
             self.assertIn("trend-meta", homepage)
             self.assertIn("关键日期", homepage)
+            self.assertIn("市场观察贴纸", homepage)
+            self.assertGreaterEqual(homepage.count('class="market-sticker"'), 5)
+            self.assertIn("课程设计", homepage)
             css = (root / "assets" / "site.css").read_text(encoding="utf-8")
             self.assertIn("暖灰", css)
             self.assertIn("clamp(24px, 3vw, 40px)", css)
             self.assertIn("-webkit-line-clamp: 4", css)
             self.assertIn(".meta-label", css)
             self.assertIn(".archive-item .headline code", css)
+            self.assertIn(".market-sticker", css)
             data = json.loads((root / "site-data" / "reports.json").read_text(encoding="utf-8"))
             self.assertEqual(data[0]["date"], "2026-06-04")
+            self.assertGreaterEqual(len(data[0]["marketObservations"]), 5)
+            self.assertIn("课程设计", data[0]["marketObservations"][0]["application"])
 
     def test_build_site_removes_internal_operations_from_public_pages(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

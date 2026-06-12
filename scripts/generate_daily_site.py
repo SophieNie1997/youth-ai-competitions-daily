@@ -70,6 +70,68 @@ class Report:
     source_path: str
 
 
+@dataclass(frozen=True)
+class MarketObservation:
+    category: str
+    title: str
+    signal: str
+    detail: str
+    application: str
+
+
+MARKET_OBSERVATIONS = [
+    MarketObservation(
+        category="课程设计",
+        title="AI项目从编程题转向跨学科作品集",
+        signal="AIGCNYACC、WAICY、长三角AI奥赛和数字中国赛道都在强调图像、视频、音频、非遗、城市治理、科学传播等成果。",
+        detail="市场不再只奖励会写代码的学生，也在奖励能用AI完成调研、创意表达、原型制作和公开展示的学生。课程需要把“问题发现、AI协作、作品打磨、展示表达”做成完整闭环。",
+        application="课程设计可拆成AI创意表达、AI应用原型、AI+机器人三条线；招生卖点可突出“不止学工具，而是做出可参赛、可展示、可写进成长档案的项目”。",
+    ),
+    MarketObservation(
+        category="产品开发",
+        title="家长真正买的是节点确定性",
+        signal="日报持续出现报名截止、作品提交、选拔赛、决赛、结果发布等密集节点，且部分赛事页面存在口径差异。",
+        detail="家长和机构的痛点不是不知道有赛事，而是不知道哪个还能报、哪个适合孩子、材料什么时候交、官方口径是否可靠。",
+        application="产品可以做赛事雷达、倒计时提醒、材料清单和口径复核；招生卖点可强调“帮家长避开错过报名和误读规则的成本”。",
+    ),
+    MarketObservation(
+        category="招生卖点",
+        title="区域赛事正在成为低门槛入口",
+        signal="粤港澳、长三角、福建数字中国、澳门MYAIR等区域赛事持续出现，覆盖机器人、编程、创意设计、AI艺术和展示交流。",
+        detail="区域赛更接近学校和城市资源，适合把低龄或初次参赛学生带入AI竞赛体系，再逐步衔接全国赛和国际赛。",
+        application="招生话术可从“第一次AI赛事体验”切入，承诺匹配本地/区域赛事路径，降低家长对国际或全国赛事过难的心理门槛。",
+    ),
+    MarketObservation(
+        category="课程设计",
+        title="过程证据变成作品的一部分",
+        signal="AIGCNYACC等赛事要求创作草稿、AI生成过程截图、作品说明；AIEC要求原型、商业论证、伦理与社会影响说明。",
+        detail="未来课程不能只交最终图或最终Demo，必须训练学生保存草稿、提示词、迭代截图、测试记录、演示视频和答辩材料。",
+        application="产品应内置“作品证据包”模板；课程可设置每周产出草稿、Prompt记录、版本对比和一分钟路演，直接服务参赛提交。",
+    ),
+    MarketObservation(
+        category="产品开发",
+        title="国际赛卖点从奖牌转向英文项目制能力",
+        signal="WAICY、IAI²O、AIEC、Teens in AI等国际线索共同强调英文展示、团队协作、AI for Social Good、商业/科学/社会影响。",
+        detail="国际赛事更适合包装为跨文化项目制学习，而不是单纯奖项冲刺。学生需要英文表达、问题定义、团队角色、伦理意识和展示能力。",
+        application="可开发双语AI项目营、英文Pitch训练营、AI社会创新工作坊；招生卖点可强调“竞赛准备+英文表达+国际项目履历”三合一。",
+    ),
+    MarketObservation(
+        category="招生卖点",
+        title="AI安全与伦理正在变成差异化方向",
+        signal="天枢杯、AIEC、IAI²O等赛事反复出现安全、伦理、隐私、社会责任、可信AI等关键词。",
+        detail="多数AI课程容易停留在生成图片或聊天工具，安全与伦理方向反而能形成更高级、更有公共议题感的课程定位。",
+        application="课程可以增加AI安全闯关、Deepfake识别、隐私与偏见案例、负责任AI设计；招生卖点可突出“技术能力之外，培养判断力和责任感”。",
+    ),
+    MarketObservation(
+        category="产品开发",
+        title="硬件机器人赛道需要和AIGC软件赛道分层运营",
+        signal="数字中国、粤港澳、MYAIR、长三角赛项中，机器人、无人机、虚拟仿真和具身智能与AIGC艺术/文本/视频并行增长。",
+        detail="同样叫AI赛事，学生准备路径差异很大：一类偏作品创意与表达，一类偏结构、传感器、控制、任务策略和现场调试。",
+        application="产品线应拆成“AI创意软件线”和“AI机器人任务线”；招生时按学生年龄、动手能力和可投入设备成本做分流。",
+    ),
+]
+
+
 def format_date_label(date: str) -> str:
     year, month, day = date.split("-")
     return f"{year} / {month} / {day}"
@@ -340,6 +402,38 @@ def render_trend_card(report: Report, index: int) -> str:
     """
 
 
+def render_market_sticker(observation: MarketObservation, index: int) -> str:
+    return f"""
+    <details class="market-sticker">
+      <summary>
+        <span class="sticker-number">{index:02d}</span>
+        <span class="sticker-copy">
+          <span class="sticker-category">{html.escape(observation.category)}</span>
+          <strong>{render_inline(observation.title)}</strong>
+          <span>{render_inline(observation.signal)}</span>
+        </span>
+      </summary>
+      <div class="sticker-detail">
+        <p>{render_inline(observation.detail)}</p>
+        <div class="sticker-application">{render_inline(observation.application)}</div>
+      </div>
+    </details>
+    """
+
+
+def market_observations_json() -> list[dict[str, str]]:
+    return [
+        {
+            "category": observation.category,
+            "title": observation.title,
+            "signal": observation.signal,
+            "detail": observation.detail,
+            "application": observation.application,
+        }
+        for observation in MARKET_OBSERVATIONS
+    ]
+
+
 def write_assets(assets_dir: Path) -> None:
     css = """/* 暖灰苹果风赛事日报站样式 */
 :root {
@@ -410,6 +504,63 @@ a:hover { text-decoration: underline; }
 .meta-label { color: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
 .meta-row span:last-child { font-size: 15px; line-height: 1.5; }
 .trend-card p { color: var(--muted); font-size: 14px; line-height: 1.65; margin: 0; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.market-board { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.market-sticker {
+  border: 1px solid rgba(139, 82, 35, 0.16);
+  border-radius: 24px;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,0.9), rgba(246, 226, 193, 0.72)),
+    var(--paper);
+  box-shadow: 0 14px 34px rgba(76, 56, 35, 0.08);
+  overflow: hidden;
+}
+.market-sticker summary {
+  display: grid;
+  grid-template-columns: 46px 1fr;
+  gap: 14px;
+  padding: 18px 20px;
+  cursor: pointer;
+  list-style: none;
+}
+.market-sticker summary::-webkit-details-marker { display: none; }
+.market-sticker summary::after {
+  content: "展开";
+  grid-column: 2;
+  width: fit-content;
+  margin-top: 2px;
+  border-radius: 999px;
+  border: 1px solid rgba(169, 90, 42, 0.18);
+  color: #7a4d2f;
+  background: rgba(255,255,255,0.56);
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: 700;
+}
+.market-sticker[open] summary::after { content: "收起"; }
+.sticker-number {
+  display: inline-grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 14px;
+  background: rgba(169, 90, 42, 0.14);
+  color: #7a4d2f;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+.sticker-copy { display: grid; gap: 7px; }
+.sticker-category { color: var(--accent); font-size: 12px; font-weight: 800; }
+.sticker-copy strong { font-size: 19px; line-height: 1.25; letter-spacing: -0.02em; }
+.sticker-copy span:last-child { color: var(--muted); font-size: 14px; line-height: 1.65; }
+.sticker-detail { padding: 0 20px 20px 80px; }
+.sticker-detail p { color: var(--muted); line-height: 1.75; margin: 0 0 12px; }
+.sticker-application {
+  border-left: 3px solid rgba(169, 90, 42, 0.4);
+  background: rgba(255,255,255,0.44);
+  border-radius: 0 16px 16px 0;
+  padding: 12px 14px;
+  line-height: 1.7;
+}
 .archive-wrap { border-radius: var(--radius-xl); overflow: hidden; }
 .archive-item { display: grid; grid-template-columns: 120px 1fr 110px; gap: 18px; padding: 20px 24px; border-top: 1px solid var(--line); align-items: center; }
 .archive-item:first-child { border-top: 0; }
@@ -466,9 +617,10 @@ th code,
   box-shadow: none;
 }
 @media (max-width: 900px) {
-  .feature, .detail-layout, .trend-grid, .archive-item { grid-template-columns: 1fr; }
+  .feature, .detail-layout, .trend-grid, .market-board, .archive-item { grid-template-columns: 1fr; }
   .archive-item .jump { justify-self: start; }
   .toc { position: static; }
+  .sticker-detail { padding-left: 20px; }
   .page { width: min(100vw - 20px, 1120px); padding-top: 24px; }
 }
 """
@@ -488,8 +640,9 @@ def write_json_index(path: Path, reports: list[Report]) -> None:
                     "archiveSummary": report.archive_summary,
                     "summaryBullets": report.summary_bullets[:3],
                     "detailPath": report.detail_path,
+                    "marketObservations": market_observations_json() if index == 0 else [],
                 }
-                for report in reports
+                for index, report in enumerate(reports)
             ],
             ensure_ascii=False,
             indent=2,
@@ -505,6 +658,9 @@ def write_homepage(path: Path, reports: list[Report]) -> None:
     feature_lead = summarize_for_card(feature_lead, 86)
     archive_items = "\n".join(render_archive_item(report) for report in reports)
     trend_cards = "\n".join(render_trend_card(report, idx) for idx, report in enumerate(reports[:5], start=1))
+    market_stickers = "\n".join(
+        render_market_sticker(observation, idx) for idx, observation in enumerate(MARKET_OBSERVATIONS, start=1)
+    )
     latest_bullets = "".join(
         f"<li>{render_inline(summarize_for_card(item, 56))}</li>" for item in latest.summary_bullets[:3]
     )
@@ -541,6 +697,13 @@ def write_homepage(path: Path, reports: list[Report]) -> None:
         <div class="claim">{render_inline(summary_claim)}</div>
         <a class="cta" href="{html.escape(latest.detail_path)}">查看当日详情页 →</a>
       </article>
+    </section>
+    <section class="section">
+      <div class="section-head">
+        <h2>市场观察贴纸</h2>
+        <p>从截至目前的日报中提炼课程、产品和招生可复用判断。</p>
+      </div>
+      <div class="market-board">{market_stickers}</div>
     </section>
     <section class="section">
       <div class="section-head">
