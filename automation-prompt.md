@@ -78,6 +78,13 @@ OPENCLI="/Users/sophienie/Library/Application Support/CodexWeixinBridge/node_mod
 - 再给 `小红书新增线索`，只保留对读者有价值的笔记标题、作者、发布时间、互动量和可搜索关键词；如果当天没有可公开使用的新线索，可写“暂无值得公开记录的新线索”，不要解释 OpenCLI、缓存、登录态、daemon、curl、BROWSER_CONNECT 等内部原因。
 - 最后给 `资料来源说明`，用读者能理解的语言说明本期主要依据官网、正式通知、参赛指南 PDF、主办方或权威媒体公开稿；社媒线索仅作跟踪，不作为报名截止、奖项比例或参赛资格的最终依据。
 
+市场观察要求：
+- 每次更新日报时，必须同步复核并更新网站首页的 `市场观察` 区块。该区块用于沉淀可用于课程设计、产品开发或招生卖点提炼的市场观察，不少于 `5` 条。
+- `市场观察` 的数据维护在 `scripts/generate_daily_site.py` 的 `MARKET_OBSERVATIONS` 中；每条观察应包含类别、标题、信号、详情和可转化应用，类别优先使用 `课程设计`、`产品开发`、`招生卖点`。
+- 更新依据应来自截至当天的所有日报和当天新增资料：如果出现新赛事类型、赛制变化、成果要求、年龄段变化、报名/交付节点变化、奖项或展示机会变化，应判断是否需要新增、合并、改写或重排观察。
+- 如果当天赛事信息没有带来新的市场判断，也要快速复核现有 `市场观察` 是否仍准确；可以保持不变，但最终回复和 memory 中应说明已复核。
+- 首页公开标题必须使用 `市场观察`，不要写成 `市场观察贴纸`；视觉上可以继续使用可展开的小贴纸/卡片样式。
+
 公开网站内容边界：
 - 网站会分享给外部读者，只保留赛事价值信息，不展示自动化运行细节。
 - 不要在 `今日变化提醒`、`主表`、`小红书新增线索`、`资料来源说明` 或任何会进入网站的内容中出现 `OpenCLI`、`opencli-cache`、`latest.json`、`latest.md`、`daemon`、`doctor`、`curl`、`lsof`、`127.0.0.1`、`BROWSER_CONNECT`、`AUTH_REQUIRED`、`登录态`、`自动化沙箱`、`GitHub push`、`Could not resolve host` 等内部诊断词。
@@ -103,10 +110,12 @@ OPENCLI="/Users/sophienie/Library/Application Support/CodexWeixinBridge/node_mod
 2. 当天 `daily/YYYY-MM-DD.html` 已生成；
 3. `site-data/reports.json` 已更新；
 4. 首页能看到当天摘要、趋势区块和历史归档入口；
-5. `git status --short` 能看到当天应发布的变更，或确认当天无新增内容；
-6. 必须运行以下公开内容检查，确保网站产物不含内部诊断词：`rg -n "OpenCLI|opencli-cache|latest\\.json|latest\\.md|daemon|doctor|curl|lsof|127\\.0\\.0\\.1|BROWSER_CONNECT|AUTH_REQUIRED|登录态|自动化沙箱|GitHub push|Could not resolve host|渠道覆盖与失败说明" index.html daily site-data reports/latest.md reports/youth-ai-competitions-YYYY-MM-DD.md`；如果命中，先清理内容再生成/提交。注意 `automation-prompt.md`、README 和 memory 可以保留内部运行说明，不纳入这个公开内容检查。
-7. 如有变更，执行 `git add reports/youth-ai-competitions-YYYY-MM-DD.md reports/latest.md index.html daily/YYYY-MM-DD.html site-data/reports.json assets/site.css assets/site.js automation-prompt.md README.md .github/workflows/pages.yml docs/github-pages.md scripts/generate_daily_site.py tests/test_generate_daily_site.py`；
-8. 提交：`git commit -m "chore: publish daily report YYYY-MM-DD"`；
-9. 推送：`git push origin main`。
-10. 如果 push 失败且错误明确属于暂时性网络/DNS/连接问题，例如 `Could not resolve host`、`Failed to connect`、`Connection timed out`、`Operation timed out`、`EAI_AGAIN`、`ENOTFOUND`、`ECONNRESET`、`ETIMEDOUT`、`TLS handshake`、`HTTP 5xx`，等待 `90` 秒后重试 `git push origin main`，最多重试 `2` 次。重试必须使用同一个已生成、已提交的版本，不要重新生成日报、不要创建重复提交、不要改动提交内容。
-11. 如果重试后仍失败，或首次失败属于 GitHub 凭证、workflow scope、远端权限、non-fast-forward 等非暂时网络类问题，不要继续重试，不要说网站已更新；只能说“本地日报和网页已生成并提交，GitHub Pages 发布被推送失败阻塞”，并给出失败命令与错误摘要。
+5. 首页能看到 `市场观察` 区块，且公开页面不出现 `市场观察贴纸` 字样；
+6. `site-data/reports.json` 的最新日报记录包含不少于 `5` 条 `marketObservations`；
+7. `git status --short` 能看到当天应发布的变更，或确认当天无新增内容；
+8. 必须运行以下公开内容检查，确保网站产物不含内部诊断词：`rg -n "OpenCLI|opencli-cache|latest\\.json|latest\\.md|daemon|doctor|curl|lsof|127\\.0\\.0\\.1|BROWSER_CONNECT|AUTH_REQUIRED|登录态|自动化沙箱|GitHub push|Could not resolve host|渠道覆盖与失败说明" index.html daily site-data reports/latest.md reports/youth-ai-competitions-YYYY-MM-DD.md`；如果命中，先清理内容再生成/提交。注意 `automation-prompt.md`、README 和 memory 可以保留内部运行说明，不纳入这个公开内容检查。
+9. 如有变更，执行 `git add reports/youth-ai-competitions-YYYY-MM-DD.md reports/latest.md index.html daily/YYYY-MM-DD.html site-data/reports.json assets/site.css assets/site.js automation-prompt.md README.md .github/workflows/pages.yml docs/github-pages.md scripts/generate_daily_site.py tests/test_generate_daily_site.py`；
+10. 提交：`git commit -m "chore: publish daily report YYYY-MM-DD"`；
+11. 推送：`git push origin main`。
+12. 如果 push 失败且错误明确属于暂时性网络/DNS/连接问题，例如 `Could not resolve host`、`Failed to connect`、`Connection timed out`、`Operation timed out`、`EAI_AGAIN`、`ENOTFOUND`、`ECONNRESET`、`ETIMEDOUT`、`TLS handshake`、`HTTP 5xx`，等待 `90` 秒后重试 `git push origin main`，最多重试 `2` 次。重试必须使用同一个已生成、已提交的版本，不要重新生成日报、不要创建重复提交、不要改动提交内容。
+13. 如果重试后仍失败，或首次失败属于 GitHub 凭证、workflow scope、远端权限、non-fast-forward 等非暂时网络类问题，不要继续重试，不要说网站已更新；只能说“本地日报和网页已生成并提交，GitHub Pages 发布被推送失败阻塞”，并给出失败命令与错误摘要。
