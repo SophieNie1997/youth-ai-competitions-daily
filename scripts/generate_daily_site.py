@@ -90,7 +90,7 @@ MARKET_OBSERVATIONS = [
     MarketObservation(
         category="产品开发",
         title="家长真正买的是节点确定性",
-        signal="AIIC已明确8月14-16日决赛报到和比赛安排，AIGCNYACC国赛提交到8月15日，IOAI正在8月2-8日比赛周。",
+        signal="AIIC已明确8月14日报到、15-16日比赛，AIGCNYACC国赛提交到8月15日，IAI²O又把全球决赛调整到9月25-27日并改为受邀注册。",
         detail="家长和机构的痛点不是不知道有赛事，而是不知道哪个还能提交、哪个适合孩子、材料什么时候交、现场和线上赛项怎样区分、官方口径是否可靠。",
         application="产品可以做赛事雷达、倒计时提醒、材料清单和口径复核；招生卖点可强调“帮家长避开错过提交、误读规则和临场准备不足的成本”。",
     ),
@@ -128,6 +128,13 @@ MARKET_OBSERVATIONS = [
         signal="数字中国、粤港澳、MYAIR、世界机器人大赛和WAIC YOUNG机器狗项目中，机器人、无人机、虚拟仿真和具身智能与AIGC艺术/文本/视频并行增长。",
         detail="同样叫AI赛事，学生准备路径差异很大：一类偏作品创意与表达，一类偏结构、传感器、控制、任务策略和现场调试。",
         application="产品线应拆成“AI创意软件线”和“AI机器人任务线”；招生时按学生年龄、动手能力和可投入设备成本做分流。",
+    ),
+    MarketObservation(
+        category="产品开发",
+        title="公开排行榜可以转化为能力诊断",
+        signal="IOAI 2026公开了440名个人赛选手的6个任务分数、总分、排名和奖牌，IAI²O也按AI for Science、AI for Business和AI Innovators Challenge发布入围名单。",
+        detail="高质量赛事数据不只是喜报素材，还能反向看出学生在不同任务上的强弱、项目赛与理论实操赛的分流，以及从入围到决赛需要补齐的成果材料。",
+        application="产品可增加任务级成绩复盘、能力雷达和赛道匹配报告；课程结束时给家长一份‘孩子适合哪类AI赛事、下一阶段补什么’的可执行诊断。",
     ),
 ]
 
@@ -385,10 +392,11 @@ def render_archive_item(report: Report) -> str:
     """
 
 
-def render_trend_card(report: Report, index: int) -> str:
-    headline = report.trend_bullets[0] if report.trend_bullets else report.archive_headline
-    description = report.trend_bullets[1] if len(report.trend_bullets) > 1 else report.archive_summary
-    title, change_type, key_dates = extract_trend_card_data(headline)
+def render_trend_card(bullet: str, index: int) -> str:
+    title, change_type, key_dates = extract_trend_card_data(bullet)
+    cleaned = re.sub(r"`([^`]+)`", r"\1", bullet).strip()
+    _, separator, detail = cleaned.partition("：")
+    description = detail.strip() if separator else cleaned
     return f"""
     <article class="trend-card">
       <div class="tag">趋势 {index}</div>
@@ -578,12 +586,12 @@ a:hover { text-decoration: underline; }
   border: 1px solid rgba(169, 90, 42, 0.1);
   color: #87624a;
 }
-.detail-layout { display: grid; grid-template-columns: 280px 1fr; gap: 24px; align-items: start; }
+.detail-layout { display: grid; grid-template-columns: 280px minmax(0, 1fr); gap: 24px; align-items: start; }
 .toc { border-radius: 24px; padding: 18px; position: sticky; top: 18px; }
 .toc h3 { margin: 0 0 12px; font-size: 18px; }
 .toc ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
 .toc a { color: var(--muted); font-size: 14px; }
-.detail-card { border-radius: var(--radius-xl); padding: 28px; }
+.detail-card { border-radius: var(--radius-xl); padding: 28px; min-width: 0; }
 .detail-card section + section { margin-top: 28px; }
 .detail-card h2 { font-size: 28px; line-height: 1.15; letter-spacing: -0.025em; margin: 0 0 14px; }
 .detail-card p { line-height: 1.8; margin: 10px 0; }
@@ -617,7 +625,7 @@ th code,
   box-shadow: none;
 }
 @media (max-width: 900px) {
-  .feature, .detail-layout, .trend-grid, .market-board, .archive-item { grid-template-columns: 1fr; }
+  .feature, .detail-layout, .trend-grid, .market-board, .archive-item { grid-template-columns: minmax(0, 1fr); }
   .archive-item .jump { justify-self: start; }
   .toc { position: static; }
   .sticker-detail { padding-left: 20px; }
@@ -656,10 +664,14 @@ def write_homepage(path: Path, reports: list[Report]) -> None:
     latest_date_label = format_date_label(latest.date)
     feature_title, feature_lead = split_feature_bullet(latest.archive_headline)
     feature_lead = summarize_for_card(feature_lead, 86)
-    archive_items = "\n".join(render_archive_item(report) for report in reports)
-    trend_cards = "\n".join(render_trend_card(report, idx) for idx, report in enumerate(reports[:5], start=1))
+    archive_items = "\n".join(render_archive_item(report).rstrip() for report in reports)
+    trend_cards = "\n".join(
+        render_trend_card(bullet, idx).rstrip()
+        for idx, bullet in enumerate(latest.summary_bullets[:5], start=1)
+    )
     market_stickers = "\n".join(
-        render_market_sticker(observation, idx) for idx, observation in enumerate(MARKET_OBSERVATIONS, start=1)
+        render_market_sticker(observation, idx).rstrip()
+        for idx, observation in enumerate(MARKET_OBSERVATIONS, start=1)
     )
     latest_bullets = "".join(
         f"<li>{render_inline(summarize_for_card(item, 56))}</li>" for item in latest.summary_bullets[:3]
