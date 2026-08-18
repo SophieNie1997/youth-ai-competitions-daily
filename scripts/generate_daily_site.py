@@ -82,16 +82,16 @@ class MarketObservation:
 MARKET_OBSERVATIONS = [
     MarketObservation(
         category="课程设计",
-        title="AI项目从作品集转向现场展示闭环",
-        signal="AIIC乌镇决赛、首届全国青少年人工智能大赛上海决赛、WAIC YOUNG机器狗越障赛都把作品带到线下展示和答辩场景。",
-        detail="市场不再只奖励会写代码或会生成作品的学生，也在奖励能把AI方案带到现场、完成调试、讲清问题并接受评审追问的学生。课程需要把“问题发现、AI协作、作品打磨、现场展示”做成完整闭环。",
+        title="现场交付正在成为AI赛事共同门槛",
+        signal="首届全国青少年人工智能大赛和AIIC都已完成线下决赛，MeckUp Orbit Odyssey与From Algorithms to Neurons又把机器人调试、黑客松、项目展示和答辩排入同一赛程。",
+        detail="市场不再只奖励会写代码或会生成作品的学生，也在奖励能把AI方案带到现场、完成调试、讲清问题并接受评审追问的学生。课程需要把“问题发现、AI协作、作品打磨、现场交付”做成完整闭环。",
         application="课程设计可拆成AI创意表达、AI应用原型、AI+机器人三条线；招生卖点可突出“不止学工具，而是做出可参赛、可展示、可答辩的项目”。",
     ),
     MarketObservation(
         category="产品开发",
-        title="家长真正买的是节点确定性",
-        signal="AIIC已明确8月14日报到、15-16日比赛，AIGCNYACC国赛提交到8月15日，IAI²O又把全球决赛调整到9月25-27日并改为受邀注册。",
-        detail="家长和机构的痛点不是不知道有赛事，而是不知道哪个还能提交、哪个适合孩子、材料什么时候交、现场和线上赛项怎样区分、官方口径是否可靠。",
+        title="赛事服务价值来自状态判断",
+        signal="AIGCNYACC已进入评审、AIIC赛期已过但结果待发布、IAI²O注册已截止且页面横幅滞后；AI Challenge则仍可在9月15日前报名和完成资格赛。",
+        detail="家长和机构的痛点不是不知道有赛事，而是分不清哪个还能报名、哪个只是在等结果、材料什么时候交，以及页面上互相冲突的状态该相信哪一个。",
         application="产品可以做赛事雷达、倒计时提醒、材料清单和口径复核；招生卖点可强调“帮家长避开错过提交、误读规则和临场准备不足的成本”。",
     ),
     MarketObservation(
@@ -104,14 +104,14 @@ MARKET_OBSERVATIONS = [
     MarketObservation(
         category="课程设计",
         title="过程证据变成作品的一部分",
-        signal="AIGCNYACC等赛事要求创作草稿、AI生成过程截图、作品说明；AIEC要求原型、商业论证、伦理与社会影响说明。",
+        signal="AIGCNYACC要求创作草稿、AI生成过程截图和作品说明，AIEC要求原型与商业论证，AI Challenge团队赛还要求把方案做成网站或移动应用。",
         detail="未来课程不能只交最终图或最终Demo，必须训练学生保存草稿、提示词、迭代截图、测试记录、演示视频和答辩材料。",
         application="产品应内置“作品证据包”模板；课程可设置每周产出草稿、Prompt记录、版本对比和一分钟路演，直接服务参赛提交。",
     ),
     MarketObservation(
         category="产品开发",
         title="国际线开始分化成奥赛和项目制两条路",
-        signal="IOAI/APOAI强调个人赛、算法建模和国家队选拔，AIEC、WAICY、Presidential AI Challenge强调社区问题、团队协作、英文展示和社会影响。",
+        signal="IOAI、APOAI和俄罗斯人工智能奥林匹克强调个人算法任务与选拔，AI Challenge、AIEC和WAICY则强调团队产品、英文展示和社会影响。",
         detail="国际赛事不能再统一包装成“AI竞赛”。一条路需要算法、数学建模和长时间机考训练；另一条路需要问题定义、英文表达、团队角色、伦理意识和展示能力。",
         application="产品应拆出AI奥赛训练线与双语AI项目制训练线；招生卖点可按学生画像强调“竞赛强度匹配”，避免把作品型学生误推到高门槛算法奥赛。",
     ),
@@ -125,14 +125,14 @@ MARKET_OBSERVATIONS = [
     MarketObservation(
         category="产品开发",
         title="硬件机器人赛道需要和AIGC软件赛道分层运营",
-        signal="数字中国、粤港澳、MYAIR、世界机器人大赛和WAIC YOUNG机器狗项目中，机器人、无人机、虚拟仿真和具身智能与AIGC艺术/文本/视频并行增长。",
+        signal="MeckUp Orbit Odyssey、数字中国、粤港澳、世界机器人大赛和WAIC YOUNG中，机器人、计算机视觉、虚拟仿真和具身智能与AIGC艺术/文本/视频并行增长。",
         detail="同样叫AI赛事，学生准备路径差异很大：一类偏作品创意与表达，一类偏结构、传感器、控制、任务策略和现场调试。",
         application="产品线应拆成“AI创意软件线”和“AI机器人任务线”；招生时按学生年龄、动手能力和可投入设备成本做分流。",
     ),
     MarketObservation(
         category="产品开发",
         title="公开排行榜可以转化为能力诊断",
-        signal="IOAI 2026公开了440名个人赛选手的6个任务分数、总分、排名和奖牌，IAI²O也按AI for Science、AI for Business和AI Innovators Challenge发布入围名单。",
+        signal="IOAI 2026公开了任务级成绩，并在赛后补充赛题、数据和教学用baseline；IAI²O也按AI for Science、AI for Business和AI Innovators Challenge发布入围名单。",
         detail="高质量赛事数据不只是喜报素材，还能反向看出学生在不同任务上的强弱、项目赛与理论实操赛的分流，以及从入围到决赛需要补齐的成果材料。",
         application="产品可增加任务级成绩复盘、能力雷达和赛道匹配报告；课程结束时给家长一份‘孩子适合哪类AI赛事、下一阶段补什么’的可执行诊断。",
     ),
