@@ -73,6 +73,46 @@ class ParseReportTests(unittest.TestCase):
 
 
 class BuildSiteTests(unittest.TestCase):
+    def test_build_site_renders_unverified_leads_as_a_separate_table(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            reports_dir = root / "reports"
+            reports_dir.mkdir()
+            (reports_dir / "youth-ai-competitions-2026-08-24.md").write_text(
+                textwrap.dedent(
+                    """\
+                    青少年AI赛事资料更新 2026-08-24
+
+                    今日变化提醒
+                    - 今日变化。
+
+                    主表
+                    | 赛事 | 年级 |
+                    | --- | --- |
+                    | 已核实赛事 | 小学 |
+
+                    待核实线索
+                    | 赛事 | 年级 |
+                    | --- | --- |
+                    | 待核实赛事 | 年级待确认 |
+
+                    资料来源说明
+                    - 优先采用正式来源。
+                    """
+                ),
+                encoding="utf-8",
+            )
+
+            build_site(root)
+
+            detail = (root / "daily" / "2026-08-24.html").read_text(encoding="utf-8")
+            main_section = detail.split('<section id="主表">', 1)[1].split("</section>", 1)[0]
+            lead_section = detail.split('<section id="待核实线索">', 1)[1].split("</section>", 1)[0]
+            self.assertIn("已核实赛事", main_section)
+            self.assertNotIn("待核实赛事", main_section)
+            self.assertIn("待核实赛事", lead_section)
+            self.assertEqual(lead_section.count("<thead>"), 1)
+
     def test_build_site_writes_home_detail_and_json(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)

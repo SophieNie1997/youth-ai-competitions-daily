@@ -10,6 +10,7 @@ from pathlib import Path
 SECTION_TITLES = [
     "今日变化提醒",
     "主表",
+    "待核实线索",
     "小红书新增线索",
     "资料来源说明",
     "渠道覆盖与失败说明",
@@ -83,14 +84,14 @@ MARKET_OBSERVATIONS = [
     MarketObservation(
         category="课程设计",
         title="现场交付正在成为AI赛事共同门槛",
-        signal="首届全国青少年人工智能大赛和AIIC都已完成线下决赛，MeckUp Orbit Odyssey与From Algorithms to Neurons又把机器人调试、黑客松、项目展示和答辩排入同一赛程。",
+        signal="首届全国青少年人工智能大赛和AIIC都已完成线下决赛，全国通用人工智能挑战赛又要求把虚拟仿真策略迁移到实体智能车；MeckUp Orbit Odyssey与From Algorithms to Neurons则把机器人调试、黑客松、项目展示和答辩排入同一赛程。",
         detail="市场不再只奖励会写代码或会生成作品的学生，也在奖励能把AI方案带到现场、完成调试、讲清问题并接受评审追问的学生。课程需要把“问题发现、AI协作、作品打磨、现场交付”做成完整闭环。",
         application="课程设计可拆成AI创意表达、AI应用原型、AI+机器人三条线；招生卖点可突出“不止学工具，而是做出可参赛、可展示、可答辩的项目”。",
     ),
     MarketObservation(
         category="产品开发",
         title="赛事服务价值来自状态判断",
-        signal="AIGCNYACC已进入评审、AIIC赛期已过但结果待发布、IAI²O注册已截止且页面横幅滞后；AI Challenge则仍可在9月15日前报名和完成资格赛。",
+        signal="AIGCNYACC官网计划的评审期已到期、AIIC赛期已结束，但两者结果都待发布；IAI²O注册已截止且页面横幅滞后；全国通用人工智能挑战赛和AI Challenge则分别仍可在9月20日、9月15日前完成报名与初赛任务。",
         detail="家长和机构的痛点不是不知道有赛事，而是分不清哪个还能报名、哪个只是在等结果、材料什么时候交，以及页面上互相冲突的状态该相信哪一个。",
         application="产品可以做赛事雷达、倒计时提醒、材料清单和口径复核；招生卖点可强调“帮家长避开错过提交、误读规则和临场准备不足的成本”。",
     ),
@@ -125,7 +126,7 @@ MARKET_OBSERVATIONS = [
     MarketObservation(
         category="产品开发",
         title="硬件机器人赛道需要和AIGC软件赛道分层运营",
-        signal="MeckUp Orbit Odyssey、数字中国、粤港澳、世界机器人大赛和WAIC YOUNG中，机器人、计算机视觉、虚拟仿真和具身智能与AIGC艺术/文本/视频并行增长。",
+        signal="全国通用人工智能挑战赛、MeckUp Orbit Odyssey、数字中国、粤港澳、世界机器人大赛和WAIC YOUNG中，机器人、计算机视觉、虚拟仿真和具身智能与AIGC艺术/文本/视频并行增长。",
         detail="同样叫AI赛事，学生准备路径差异很大：一类偏作品创意与表达，一类偏结构、传感器、控制、任务策略和现场调试。",
         application="产品线应拆成“AI创意软件线”和“AI机器人任务线”；招生时按学生年龄、动手能力和可投入设备成本做分流。",
     ),
@@ -372,7 +373,7 @@ def render_rich_text(text: str) -> str:
 
 
 def render_detail_section(title: str, content: str) -> str:
-    if title == "主表":
+    if title in {"主表", "待核实线索"}:
         body = render_markdown_table(content)
     else:
         body = render_rich_text(content)
