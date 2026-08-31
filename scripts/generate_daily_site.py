@@ -83,24 +83,24 @@ class MarketObservation:
 MARKET_OBSERVATIONS = [
     MarketObservation(
         category="课程设计",
-        title="现场交付正在成为AI赛事共同门槛",
+        title="多个AI赛事要求现场交付",
         signal="首届全国青少年人工智能大赛和AIIC都已完成线下决赛，全国通用人工智能挑战赛又要求把虚拟仿真策略迁移到实体智能车；MeckUp Orbit Odyssey与From Algorithms to Neurons则把机器人调试、黑客松、项目展示和答辩排入同一赛程。",
-        detail="市场不再只奖励会写代码或会生成作品的学生，也在奖励能把AI方案带到现场、完成调试、讲清问题并接受评审追问的学生。课程需要把“问题发现、AI协作、作品打磨、现场交付”做成完整闭环。",
+        detail="这些赛项要求学生把AI方案带到现场、完成调试、讲清问题并接受评审追问。课程需要把“问题发现、AI协作、作品打磨、现场交付”做成完整闭环。",
         application="课程设计可拆成AI创意表达、AI应用原型、AI+机器人三条线；招生卖点可突出“不止学工具，而是做出可参赛、可展示、可答辩的项目”。",
     ),
     MarketObservation(
         category="产品开发",
         title="赛事服务价值来自状态判断",
-        signal="AIGCNYACC官网计划的评审期已到期、AIIC赛期已结束，但两者结果都待发布；IAI²O注册已截止且页面横幅滞后；全国通用人工智能挑战赛和AI Challenge则分别仍可在9月20日、9月15日前完成报名与初赛任务。",
+        signal="截至8月31日，广西赛事已发正式名单，AIGCNYACC和AIIC完整结果本轮仍未查见；全国通用人工智能挑战赛、AI Challenge分别在9月20日、9月15日截止。AI-JAM同一年度官网与指南还出现KST/PT截止时区冲突。",
         detail="家长和机构的痛点不是不知道有赛事，而是分不清哪个还能报名、哪个只是在等结果、材料什么时候交，以及页面上互相冲突的状态该相信哪一个。",
         application="产品可以做赛事雷达、倒计时提醒、材料清单和口径复核；招生卖点可强调“帮家长避开错过提交、误读规则和临场准备不足的成本”。",
     ),
     MarketObservation(
         category="招生卖点",
-        title="区域赛事正在成为低门槛入口",
-        signal="粤港澳、长三角、福建数字中国、澳门MYAIR、世界机器人大赛分站等区域或分站赛事持续出现，覆盖机器人、编程、创意设计、AI艺术和展示交流。",
-        detail="区域赛更接近学校和城市资源，适合把低龄或初次参赛学生带入AI竞赛体系，再逐步衔接全国赛和国际赛。",
-        application="招生话术可从“第一次AI赛事体验”切入，承诺匹配本地/区域赛事路径，降低家长对国际或全国赛事过难的心理门槛。",
+        title="区域路径先核对学校与组队资格",
+        signal="广西第23届赛事以学校组队且不接受跨校联队；广岛学生AI黑客松限定当地学校及同学段组队。区域活动虽覆盖机器人、编程和创意展示，但并非向所有学生开放。",
+        detail="区域赛可以衔接本地学校与城市资源，难度和可进入程度仍取决于地区、年级、组队与选拔条件，不能只凭“区域赛”就判断门槛较低。",
+        application="咨询时先核对学校所在地、年级、同队条件及当地选拔通知，再匹配第一次参赛路径；不承诺一定能报名。",
     ),
     MarketObservation(
         category="课程设计",
@@ -111,24 +111,31 @@ MARKET_OBSERVATIONS = [
     ),
     MarketObservation(
         category="产品开发",
-        title="国际线开始分化成奥赛和项目制两条路",
-        signal="IOAI、APOAI和俄罗斯人工智能奥林匹克强调个人算法任务与选拔，AI Challenge、AIEC和WAICY则强调团队产品、英文展示和社会影响。",
-        detail="国际赛事不能再统一包装成“AI竞赛”。一条路需要算法、数学建模和长时间机考训练；另一条路需要问题定义、英文表达、团队角色、伦理意识和展示能力。",
+        title="国际赛事可按奥赛与项目制分流",
+        signal="IOAI、APOAI和俄罗斯人工智能奥林匹克强调个人算法任务与选拔；AIEC和WAICY偏项目展示，AI Challenge则同时包含个人算法任务和团队产品成果。",
+        detail="国际赛事需要按学生能力与成果要求匹配。一条路需要算法、数学建模和长时间机考训练；另一条路需要问题定义、英文表达、团队角色、伦理意识和展示能力。",
         application="产品应拆出AI奥赛训练线与双语AI项目制训练线；招生卖点可按学生画像强调“竞赛强度匹配”，避免把作品型学生误推到高门槛算法奥赛。",
     ),
     MarketObservation(
         category="招生卖点",
         title="AI安全与伦理正在变成差异化方向",
         signal="天枢杯、AIEC、IAI²O等赛事反复出现安全、伦理、隐私、社会责任、可信AI等关键词。",
-        detail="多数AI课程容易停留在生成图片或聊天工具，安全与伦理方向反而能形成更高级、更有公共议题感的课程定位。",
+        detail="安全与伦理不应只是一页口号。微软Junior的In-a-Box评价也包含伦理与网络安全，可把隐私、偏见和技术风险转成学生需要说明的设计选择。",
         application="课程可以增加AI安全闯关、Deepfake识别、隐私与偏见案例、负责任AI设计；招生卖点可突出“技术能力之外，培养判断力和责任感”。",
     ),
     MarketObservation(
         category="产品开发",
         title="硬件机器人赛道需要和AIGC软件赛道分层运营",
-        signal="全国通用人工智能挑战赛、MeckUp Orbit Odyssey、数字中国、粤港澳、世界机器人大赛和WAIC YOUNG中，机器人、计算机视觉、虚拟仿真和具身智能与AIGC艺术/文本/视频并行增长。",
+        signal="全国通用人工智能挑战赛、MeckUp Orbit Odyssey、数字中国、粤港澳、世界机器人大赛和WAIC YOUNG中，机器人、计算机视觉、虚拟仿真和具身智能与AIGC艺术/文本/视频同时存在。",
         detail="同样叫AI赛事，学生准备路径差异很大：一类偏作品创意与表达，一类偏结构、传感器、控制、任务策略和现场调试。",
         application="产品线应拆成“AI创意软件线”和“AI机器人任务线”；招生时按学生年龄、动手能力和可投入设备成本做分流。",
+    ),
+    MarketObservation(
+        category="课程设计",
+        title="先区分用AI制作与让作品运行AI",
+        signal="YIF允许使用生成式AI工具并要求注明来源；广岛黑客松限用三种制作工具，且作品运行时不得调用AI API；AIEC则要求可验证的原型与用户验证。微软Junior已转向可供学校或地区自办活动的In-a-Box资源。",
+        detail="这些形式分别训练工具协作、现场交付和AI产品设计，不能用一份通用参赛模板替代各自规则。自办活动也不等于微软全球赛事，资源使用须遵守非营利及不得额外收费等边界。",
+        application="课程任务先标明最终交付是概念、可运行应用还是AI技术方案，再列工具与部署限制；自办展示使用自身活动名称，不把它包装成外部赛事获奖。",
     ),
     MarketObservation(
         category="产品开发",
@@ -233,8 +240,8 @@ def extract_trend_card_data(text: str) -> tuple[str, str, str]:
                 change_type = f"{prefix}{marker}{maybe_type}".strip()
                 break
 
-    dates = re.findall(r"\d{4}-\d{2}-\d{2}(?:\s\d{2}:\d{2})?", cleaned)
-    key_dates = " / ".join(dates[:3]) if dates else "待官网进一步确认"
+    dates = re.findall(r"\d{4}-\d{2}-\d{2}(?:\s\d{2}:\d{2}(?:\s(?:KST|PT|PDT|PST|EST|EDT|AoE))?)?", cleaned)
+    key_dates = " / ".join(dates[:3]) if dates else "本条为状态或规则说明"
     return summarize_for_card(title, 22), summarize_for_card(change_type, 24), key_dates
 
 
