@@ -18,7 +18,7 @@
 只有缓存缺失、过期或全部失败时，才按下方 OpenCLI 预检逻辑尝试直接调用；若直接调用仍失败，才降级到公开网页检索。即使自动化沙箱内直接调用失败，也不要丢弃当天已生成的 `opencli-cache` 成功结果。
 
 必须参考小越越项目 `/Users/sophienie/Documents/Codex/2026-05-16/codex-openclaw-weixin` 和自动化任务 `上海青少年AI教育情报` 的实现方法：
-- 在自动化里不要给微信发送 `/opencli ...` 前缀；`/opencli` 是微信直通命令。
+- OpenCLI 仅在本机调用；本任务不向微信发送指令、日报或小越越通知。
 - 自动化运行时应通过 shell 直接调用 OpenCLI 二进制。
 - 优先 OpenCLI 路径：`/Users/sophienie/Library/Application Support/CodexWeixinBridge/node_modules/.bin/opencli`
 - 回退 OpenCLI 路径：`/Users/sophienie/Documents/Codex/2026-05-16/https-mp-weixin-qq-com-s/tools/node/bin/node /Users/sophienie/Documents/Codex/2026-05-16/https-mp-weixin-qq-com-s/tools/opencli-global/lib/node_modules/@jackwener/opencli/dist/src/main.js`
@@ -95,7 +95,7 @@ OPENCLI="/Users/sophienie/Library/Application Support/CodexWeixinBridge/node_mod
 - 可同步更新 `reports/latest.md` 为当天最新版本。
 
 网页发布要求：
-- 完成日报正文后，不再通过微信发送整篇日报。
+- 完成日报正文后，不发送小越越微信通知；以网页站点作为交付渠道。
 - 必须运行 `python3 scripts/generate_daily_site.py` 生成并刷新本项目网页日报站。
 - 站点校验通过后，必须把当天 Markdown 与网页产物提交并推送到 GitHub `main`，让 GitHub Pages 自动更新公网网站。
 - 站点至少要更新以下产物：
